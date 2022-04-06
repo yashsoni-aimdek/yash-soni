@@ -1,0 +1,58 @@
+<#list entries as entry>
+		<#assign renderer = entry.getAssetRenderer()>
+		<#assign className = renderer.getClassName()>
+		<#assign className2 = 'com.liferay.journal.model.JournalArticle'>
+		<#assign journalArticle = renderer.getArticle()>
+		<#assign document = saxReaderUtil.read(journalArticle.getContentByLocale(locale))>
+		<#assign rootElement = document.getRootElement()>
+		<#assign contextUrl = assetPublisherHelper.getAssetViewURL(renderRequest,renderResponse,entry,true)>
+		<#assign contextUrl1 = 'http://localhost:8080/group/news/news-details'>
+
+		<#list rootElement.elements() as dynamicElement>
+			<#if dynamicElement.attributeValue("name") == "Text14037120">
+				<#assign title = dynamicElement.element("dynamic-content").getText()>
+			</#if>
+			<#if dynamicElement.attributeValue("name") == "RichText73626911">
+				<#assign description = dynamicElement.element("dynamic-content").getText()>
+			</#if>
+			<#if dynamicElement.attributeValue("name") == "Image22311712">
+				<#assign getURL = dynamicElement.element("dynamic-content").getData() />
+				<#list getURL?split(",") as news>
+					<#if news_index == 0>
+						<#list news?split(":") as con>
+							<#assign alt = con?string>
+						</#list>
+					</#if>
+					<#if news_index == 9>
+						<#list news?split(":") as con>
+							<#assign url = con?string>
+						</#list>
+					</#if>
+				</#list>
+			</#if>
+		</#list>
+		
+		<div class="row">
+				<div class="col-sm-4">
+						<div>
+								<h3><a href="${contextUrl}" style="color: black;"> ${title}</a></h3>
+						</div>
+						<div><br>
+								<p><div>${description?substring(0,100)}</div><br><a href="${contextUrl}">Click Here to View Full News..</a></p>
+						</div>
+				</div>
+				<div>
+						<div >
+								<a href="${contextUrl}">
+										<img src="${url?replace("\\","")?replace('"','')}" alt="${alt}" width="280" height="150">
+								</a>
+						</div>
+				</div>
+				
+		</div>
+		
+		
+		<br> 
+		
+				
+</#list>
