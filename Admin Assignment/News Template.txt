@@ -1,0 +1,21 @@
+<div class="row">
+		<div class="col-sm-6">
+				<h1>
+				<div padding-left="10" >
+					<#if (Text14037120.getData())??>
+						${Text14037120.getData()}
+					</#if>
+				</div>
+				</h1>
+				<div>
+						<#if (Image22311712.getData())?? && Image22311712.getData() != "">
+							<img alt="${Image22311712.getAttribute("alt")}" data-fileentryid="${Image22311712.getAttribute("fileEntryId")}" src="${Image22311712.getData()}" width="600" height="400" />
+						</#if>
+				</div>
+		</div>
+		<div class="col-sm-5" style="margin-top:03%; font-size:18px">
+				<#if (RichText73626911.getData())??>
+					${RichText73626911.getData()}
+				</#if>
+		</div>
+</div>
