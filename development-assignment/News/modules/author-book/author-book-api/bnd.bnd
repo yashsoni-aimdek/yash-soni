@@ -1,0 +1,10 @@
+Bundle-Name: author-book-api
+Bundle-SymbolicName: com.aimdek.assignment.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.aimdek.assignment.exception,\
+	com.aimdek.assignment.model,\
+	com.aimdek.assignment.service,\
+	com.aimdek.assignment.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../author-book-service/service.xml
