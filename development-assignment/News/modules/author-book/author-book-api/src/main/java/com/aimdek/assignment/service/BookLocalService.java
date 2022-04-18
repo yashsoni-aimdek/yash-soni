@@ -86,6 +86,7 @@ public interface BookLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Book addBook(Book book);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Book addBook(Book book, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -371,6 +372,7 @@ public interface BookLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Book updateBook(Book book);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Book updateBook(Book book, ServiceContext serviceContext)
 		throws PortalException;
 

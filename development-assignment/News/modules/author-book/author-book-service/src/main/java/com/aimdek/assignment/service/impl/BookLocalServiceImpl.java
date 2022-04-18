@@ -21,6 +21,8 @@ import com.aimdek.assignment.service.base.BookLocalServiceBaseImpl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -38,13 +40,14 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 	
+	@Indexable(type = IndexableType.REINDEX)
 	public Book addBook(Book book,ServiceContext serviceContext) throws PortalException{
 		
 		validateBook(book);
 		return addBook(book);
 		
 	}
-	
+	@Indexable(type = IndexableType.REINDEX)
 	public Book updateBook(Book book,ServiceContext serviceContext) throws PortalException{
 		
 		validateBook(book);
@@ -52,7 +55,7 @@ public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 		return updateBook(book);
 		
 	}
-	
+	@Indexable(type = IndexableType.DELETE)
 	public Book deleteBook(long	bookId) throws PortalException{
 			
 		return super.deleteBook(bookId);
