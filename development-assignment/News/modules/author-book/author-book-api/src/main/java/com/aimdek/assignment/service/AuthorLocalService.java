@@ -79,6 +79,7 @@ public interface AuthorLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Author addAuthor(Author author);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Author addAuthor(Author author, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -373,6 +374,7 @@ public interface AuthorLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Author updateAuthor(Author author);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Author updateAuthor(Author author, ServiceContext serviceContext)
 		throws PortalException;
 

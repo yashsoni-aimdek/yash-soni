@@ -22,6 +22,8 @@ import com.aimdek.assignment.service.base.AuthorLocalServiceBaseImpl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -36,13 +38,14 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class AuthorLocalServiceImpl extends AuthorLocalServiceBaseImpl {
 	
+	@Indexable(type = IndexableType.REINDEX)
 	public Author addAuthor(Author author,ServiceContext serviceContext) throws PortalException{
 		
 		validateAuthor(author);
 		return addAuthor(author);
 		
 	}
-	
+	@Indexable(type = IndexableType.REINDEX)
 	public Author updateAuthor(Author author,ServiceContext serviceContext) throws PortalException{
 		
 		validateAuthor(author);
@@ -50,7 +53,7 @@ public class AuthorLocalServiceImpl extends AuthorLocalServiceBaseImpl {
 		return updateAuthor(author);
 		
 	}
-	
+	@Indexable(type = IndexableType.DELETE)
 	public Author deleteAuthor(long	authorId) throws PortalException{
 			
 		return  super.deleteAuthor(authorId);

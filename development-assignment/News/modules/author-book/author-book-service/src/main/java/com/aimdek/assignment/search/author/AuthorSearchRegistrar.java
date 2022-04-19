@@ -1,6 +1,5 @@
 package com.aimdek.assignment.search.author;
 
-import org.omg.PortableServer._ServantActivatorStub;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Activate;
@@ -36,7 +35,7 @@ public class AuthorSearchRegistrar {
 	}
 	@Deactivate
 	private void deactivate() {
-		_serviceRegistration.unregister();
+		_serviceRegistration.unregister(); 
 	}
 	
 	@Reference(target = "(indexer.class.name=com.aimdek.assignment.model.Author)")
