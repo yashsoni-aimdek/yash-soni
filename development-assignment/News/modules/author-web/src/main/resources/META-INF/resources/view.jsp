@@ -75,9 +75,6 @@
 	}
 %>
 
-<c:if test="${keywords.length()!=0}">
-	<liferay-ui:header backURL="viewAuthorsURL" title="back" />
-</c:if>
 
 <c:if test="${canViewAddButton && keywords.length()==0}">
 	<aui:button cssClass="mt-4" name="addAuthor" href="${addEditRender}" value="Add Author" />
