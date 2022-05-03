@@ -84,7 +84,7 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand{
 		author.setCompanyId(themeDisplay.getCompanyId());
 		author.setAuthorCode(authorCode);
 		author.setAuthorName(authorName);
-		author.setAuthorBirthDay(new Date());
+		author.setAuthorRegisterDate(new Date());
 		
 		LOG.info("Author Code: " +authorCode);
 		LOG.info("Author Name: " +authorName);

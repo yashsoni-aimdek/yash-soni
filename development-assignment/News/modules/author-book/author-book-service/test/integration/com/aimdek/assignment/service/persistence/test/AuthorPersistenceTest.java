@@ -143,7 +143,7 @@ public class AuthorPersistenceTest {
 
 		newAuthor.setAuthorName(RandomTestUtil.randomString());
 
-		newAuthor.setAuthorBirthDay(RandomTestUtil.nextDate());
+		newAuthor.setAuthorRegisterDate(RandomTestUtil.nextDate());
 
 		newAuthor.setBookId(RandomTestUtil.nextLong());
 
@@ -173,8 +173,8 @@ public class AuthorPersistenceTest {
 		Assert.assertEquals(
 			existingAuthor.getAuthorName(), newAuthor.getAuthorName());
 		Assert.assertEquals(
-			Time.getShortTimestamp(existingAuthor.getAuthorBirthDay()),
-			Time.getShortTimestamp(newAuthor.getAuthorBirthDay()));
+			Time.getShortTimestamp(existingAuthor.getAuthorRegisterDate()),
+			Time.getShortTimestamp(newAuthor.getAuthorRegisterDate()));
 		Assert.assertEquals(existingAuthor.getBookId(), newAuthor.getBookId());
 	}
 
@@ -233,7 +233,7 @@ public class AuthorPersistenceTest {
 			"News_Author", "uuid", true, "authorId", true, "groupId", true,
 			"companyId", true, "userId", true, "userName", true, "createDate",
 			true, "modifiedDate", true, "authorCode", true, "authorName", true,
-			"authorBirthDay", true, "bookId", true);
+			"authorRegisterDate", true, "bookId", true);
 	}
 
 	@Test
@@ -520,7 +520,7 @@ public class AuthorPersistenceTest {
 
 		author.setAuthorName(RandomTestUtil.randomString());
 
-		author.setAuthorBirthDay(RandomTestUtil.nextDate());
+		author.setAuthorRegisterDate(RandomTestUtil.nextDate());
 
 		author.setBookId(RandomTestUtil.nextLong());
 

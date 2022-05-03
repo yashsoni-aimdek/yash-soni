@@ -99,7 +99,7 @@
 		
 		<liferay-ui:search-container-column-text name="Author Name" property="authorName"/>
 		
-		<liferay-ui:search-container-column-text name="Author Birthday" property="authorBirthDay"/>
+		<liferay-ui:search-container-column-text name="Author Register" property="authorRegisterDate"/>
 		
 	</liferay-ui:search-container-row>
 	<liferay-ui:search-iterator searchContainer="<%=searchContainer%>" />

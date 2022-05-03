@@ -52,7 +52,7 @@ public class AuthorWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("authorCode", getAuthorCode());
 		attributes.put("authorName", getAuthorName());
-		attributes.put("authorBirthDay", getAuthorBirthDay());
+		attributes.put("authorRegisterDate", getAuthorRegisterDate());
 		attributes.put("bookId", getBookId());
 
 		return attributes;
@@ -120,10 +120,10 @@ public class AuthorWrapper
 			setAuthorName(authorName);
 		}
 
-		Date authorBirthDay = (Date)attributes.get("authorBirthDay");
+		Date authorRegisterDate = (Date)attributes.get("authorRegisterDate");
 
-		if (authorBirthDay != null) {
-			setAuthorBirthDay(authorBirthDay);
+		if (authorRegisterDate != null) {
+			setAuthorRegisterDate(authorRegisterDate);
 		}
 
 		Long bookId = (Long)attributes.get("bookId");
@@ -144,8 +144,8 @@ public class AuthorWrapper
 	 * @return the author birth day of this author
 	 */
 	@Override
-	public Date getAuthorBirthDay() {
-		return model.getAuthorBirthDay();
+	public Date getAuthorRegisterDate() {
+		return model.getAuthorRegisterDate();
 	}
 
 	/**
@@ -286,11 +286,11 @@ public class AuthorWrapper
 	/**
 	 * Sets the author birth day of this author.
 	 *
-	 * @param authorBirthDay the author birth day of this author
+	 * @param authorRegisterDate the author birth day of this author
 	 */
 	@Override
-	public void setAuthorBirthDay(Date authorBirthDay) {
-		model.setAuthorBirthDay(authorBirthDay);
+	public void setAuthorRegisterDate(Date authorRegisterDate) {
+		model.setAuthorRegisterDate(authorRegisterDate);
 	}
 
 	/**

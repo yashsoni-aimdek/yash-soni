@@ -29,7 +29,7 @@ public class AuthorModelDocumentContributor implements ModelDocumentContributor<
 			document.addText(localizedTitle, author.getAuthorName());
 			document.addText("authorCode", author.getAuthorCode());
 			document.addText("authorName", author.getAuthorName());
-			document.addDate("authorBirthday", author.getAuthorBirthDay());
+			document.addDate("authorRegister", author.getAuthorRegisterDate());
 			document.addNumber("authorId", author.getAuthorId());
 		}
 		catch(PortalException pe) {

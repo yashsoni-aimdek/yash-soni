@@ -12,7 +12,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="authorCode" type="String" />
 		<field name="authorName" type="String" />
-		<field name="authorBirthDay" type="Date" />
+		<field name="authorRegisterDate" type="Date" />
 		<field name="bookId" type="long" />
 	</model>
 	<model name="com.aimdek.assignment.model.Book">

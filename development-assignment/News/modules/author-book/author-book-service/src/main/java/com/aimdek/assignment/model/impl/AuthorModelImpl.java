@@ -80,7 +80,7 @@ public class AuthorModelImpl
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"authorCode", Types.VARCHAR}, {"authorName", Types.VARCHAR},
-		{"authorBirthDay", Types.TIMESTAMP}, {"bookId", Types.BIGINT}
+		{"authorRegisterDate", Types.TIMESTAMP}, {"bookId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,12 +97,12 @@ public class AuthorModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("authorCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("authorName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("authorBirthDay", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("authorRegisterDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("bookId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table News_Author (uuid_ VARCHAR(75) null,authorId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,authorCode VARCHAR(75) null,authorName VARCHAR(75) null,authorBirthDay DATE null,bookId LONG)";
+		"create table News_Author (uuid_ VARCHAR(75) null,authorId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,authorCode VARCHAR(75) null,authorName VARCHAR(75) null,authorRegisterDate DATE null,bookId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table News_Author";
 
@@ -318,10 +318,10 @@ public class AuthorModelImpl
 		attributeSetterBiConsumers.put(
 			"authorName", (BiConsumer<Author, String>)Author::setAuthorName);
 		attributeGetterFunctions.put(
-			"authorBirthDay", Author::getAuthorBirthDay);
+			"authorRegisterDate", Author::getAuthorRegisterDate);
 		attributeSetterBiConsumers.put(
-			"authorBirthDay",
-			(BiConsumer<Author, Date>)Author::setAuthorBirthDay);
+			"authorRegisterDate",
+			(BiConsumer<Author, Date>)Author::setAuthorRegisterDate);
 		attributeGetterFunctions.put("bookId", Author::getBookId);
 		attributeSetterBiConsumers.put(
 			"bookId", (BiConsumer<Author, Long>)Author::setBookId);
@@ -554,17 +554,17 @@ public class AuthorModelImpl
 
 	@JSON
 	@Override
-	public Date getAuthorBirthDay() {
-		return _authorBirthDay;
+	public Date getAuthorRegisterDate() {
+		return _authorRegisterDate;
 	}
 
 	@Override
-	public void setAuthorBirthDay(Date authorBirthDay) {
+	public void setAuthorRegisterDate(Date authorRegisterDate) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_authorBirthDay = authorBirthDay;
+		_authorRegisterDate = authorRegisterDate;
 	}
 
 	@JSON
@@ -654,7 +654,7 @@ public class AuthorModelImpl
 		authorImpl.setModifiedDate(getModifiedDate());
 		authorImpl.setAuthorCode(getAuthorCode());
 		authorImpl.setAuthorName(getAuthorName());
-		authorImpl.setAuthorBirthDay(getAuthorBirthDay());
+		authorImpl.setAuthorRegisterDate(getAuthorRegisterDate());
 		authorImpl.setBookId(getBookId());
 
 		authorImpl.resetOriginalValues();
@@ -680,8 +680,8 @@ public class AuthorModelImpl
 			this.<String>getColumnOriginalValue("authorCode"));
 		authorImpl.setAuthorName(
 			this.<String>getColumnOriginalValue("authorName"));
-		authorImpl.setAuthorBirthDay(
-			this.<Date>getColumnOriginalValue("authorBirthDay"));
+		authorImpl.setAuthorRegisterDate(
+			this.<Date>getColumnOriginalValue("authorRegisterDate"));
 		authorImpl.setBookId(this.<Long>getColumnOriginalValue("bookId"));
 
 		return authorImpl;
@@ -816,13 +816,13 @@ public class AuthorModelImpl
 			authorCacheModel.authorName = null;
 		}
 
-		Date authorBirthDay = getAuthorBirthDay();
+		Date authorRegisterDate = getAuthorRegisterDate();
 
-		if (authorBirthDay != null) {
-			authorCacheModel.authorBirthDay = authorBirthDay.getTime();
+		if (authorRegisterDate != null) {
+			authorCacheModel.authorRegisterDate = authorRegisterDate.getTime();
 		}
 		else {
-			authorCacheModel.authorBirthDay = Long.MIN_VALUE;
+			authorCacheModel.authorRegisterDate = Long.MIN_VALUE;
 		}
 
 		authorCacheModel.bookId = getBookId();
@@ -926,7 +926,7 @@ public class AuthorModelImpl
 	private boolean _setModifiedDate;
 	private String _authorCode;
 	private String _authorName;
-	private Date _authorBirthDay;
+	private Date _authorRegisterDate;
 	private long _bookId;
 
 	public <T> T getColumnValue(String columnName) {
@@ -968,7 +968,7 @@ public class AuthorModelImpl
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("authorCode", _authorCode);
 		_columnOriginalValues.put("authorName", _authorName);
-		_columnOriginalValues.put("authorBirthDay", _authorBirthDay);
+		_columnOriginalValues.put("authorRegisterDate", _authorRegisterDate);
 		_columnOriginalValues.put("bookId", _bookId);
 	}
 
@@ -1013,7 +1013,7 @@ public class AuthorModelImpl
 
 		columnBitmasks.put("authorName", 512L);
 
-		columnBitmasks.put("authorBirthDay", 1024L);
+		columnBitmasks.put("authorRegisterDate", 1024L);
 
 		columnBitmasks.put("bookId", 2048L);
 

@@ -83,8 +83,8 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 		sb.append(authorCode);
 		sb.append(", authorName=");
 		sb.append(authorName);
-		sb.append(", authorBirthDay=");
-		sb.append(authorBirthDay);
+		sb.append(", authorRegisterDate=");
+		sb.append(authorRegisterDate);
 		sb.append(", bookId=");
 		sb.append(bookId);
 		sb.append("}");
@@ -143,11 +143,11 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 			authorImpl.setAuthorName(authorName);
 		}
 
-		if (authorBirthDay == Long.MIN_VALUE) {
-			authorImpl.setAuthorBirthDay(null);
+		if (authorRegisterDate == Long.MIN_VALUE) {
+			authorImpl.setAuthorRegisterDate(null);
 		}
 		else {
-			authorImpl.setAuthorBirthDay(new Date(authorBirthDay));
+			authorImpl.setAuthorRegisterDate(new Date(authorRegisterDate));
 		}
 
 		authorImpl.setBookId(bookId);
@@ -173,7 +173,7 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 		modifiedDate = objectInput.readLong();
 		authorCode = objectInput.readUTF();
 		authorName = objectInput.readUTF();
-		authorBirthDay = objectInput.readLong();
+		authorRegisterDate = objectInput.readLong();
 
 		bookId = objectInput.readLong();
 	}
@@ -219,7 +219,7 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 			objectOutput.writeUTF(authorName);
 		}
 
-		objectOutput.writeLong(authorBirthDay);
+		objectOutput.writeLong(authorRegisterDate);
 
 		objectOutput.writeLong(bookId);
 	}
@@ -234,7 +234,7 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 	public long modifiedDate;
 	public String authorCode;
 	public String authorName;
-	public long authorBirthDay;
+	public long authorRegisterDate;
 	public long bookId;
 
 }

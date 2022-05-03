@@ -9,7 +9,7 @@ create table News_Author (
 	modifiedDate DATE null,
 	authorCode VARCHAR(75) null,
 	authorName VARCHAR(75) null,
-	authorBirthDay DATE null,
+	authorRegisterDate DATE null,
 	bookId LONG
 );
 

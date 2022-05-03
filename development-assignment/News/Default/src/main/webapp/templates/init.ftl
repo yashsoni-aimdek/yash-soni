@@ -64,7 +64,7 @@
 		is_setup_complete = user.isSetupComplete()
 		language = locale.getLanguage()
 		language_id = user.getLanguageId()
-		user_birthday = user.getBirthday()
+		user_register = user.getRegister()
 		user_comments = user.getComments()
 		user_email_address = user.getEmailAddress()
 		user_first_name = user.getFirstName()

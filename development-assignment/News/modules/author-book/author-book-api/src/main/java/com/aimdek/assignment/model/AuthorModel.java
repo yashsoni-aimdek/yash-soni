@@ -238,14 +238,14 @@ public interface AuthorModel
 	 *
 	 * @return the author birth day of this author
 	 */
-	public Date getAuthorBirthDay();
+	public Date getAuthorRegisterDate();
 
 	/**
 	 * Sets the author birth day of this author.
 	 *
-	 * @param authorBirthDay the author birth day of this author
+	 * @param authorRegisterDate the author birth day of this author
 	 */
-	public void setAuthorBirthDay(Date authorBirthDay);
+	public void setAuthorRegisterDate(Date authorRegisterDate);
 
 	/**
 	 * Returns the book ID of this author.
