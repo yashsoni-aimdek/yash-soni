@@ -18,6 +18,7 @@
 <%@page import="com.aimdek.assignment.model.Author" %>
 <%@page import="com.liferay.portal.kernel.util.ListUtil" %>
 <%@ include file="/init.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 
 
 <portlet:renderURL var="addAuthorURL">
@@ -91,7 +92,7 @@
 		log.info("searchcontainer results : " + searchContainer.getResults().size());
 	%>
 	</liferay-ui:search-container-results>
-	<liferay-ui:search-container-row className="com.aimdek.assignment.model.Author" keyProperty="authorId" modelVar="authorrrrr">
+	<liferay-ui:search-container-row className="com.aimdek.assignment.model.Author" keyProperty="authorId" modelVar="authorvar">
 		
 		<liferay-ui:search-container-column-text name="Author Id" property="authorId"/>
 		
@@ -99,7 +100,9 @@
 		
 		<liferay-ui:search-container-column-text name="Author Name" property="authorName"/>
 		
-		<liferay-ui:search-container-column-text name="Author Register" property="authorRegisterDate"/>
+		<liferay-ui:search-container-column-text name="Author Register Date" >
+			<fmt:formatDate pattern="dd-MM-yyyy" value="${authorvar.authorRegisterDate}" />
+		</liferay-ui:search-container-column-text>
 		
 	</liferay-ui:search-container-row>
 	<liferay-ui:search-iterator searchContainer="<%=searchContainer%>" />
