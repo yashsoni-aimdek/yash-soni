@@ -1,5 +1,7 @@
 package com.news.author.portlet.actions;
 
+import java.util.List;
+
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -8,7 +10,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.aimdek.assignment.model.Author;
+import com.aimdek.assignment.model.Book;
 import com.aimdek.assignment.service.AuthorLocalService;
+import com.aimdek.assignment.service.BookLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -35,7 +39,9 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 		try {
 			if(authorId > 0) {
 				author = authorLocalService.getAuthor(authorId);
+//				List<Book> books = bookLocalService.getAuthorBooks(authorId);
 			}
+			
 		}catch(PortalException e) {
 			LOG.error(e.getMessage(), e);
 		}
@@ -46,5 +52,9 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 	@Reference
 	private AuthorLocalService authorLocalService;
 	
+//	@Reference
+//	private BookLocalService bookLocalService;
+	
 	private static final Log LOG = LogFactoryUtil.getLog(AuthorAddEditActionCommand.class);
 }
+ 

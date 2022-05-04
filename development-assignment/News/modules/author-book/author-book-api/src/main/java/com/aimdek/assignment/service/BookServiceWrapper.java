@@ -35,6 +35,11 @@ public class BookServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.aimdek.assignment.model.Book> getAllBook() {
+		return _bookService.getAllBook();
+	}
+
+	@Override
 	public com.aimdek.assignment.model.Book getBook(long bookId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

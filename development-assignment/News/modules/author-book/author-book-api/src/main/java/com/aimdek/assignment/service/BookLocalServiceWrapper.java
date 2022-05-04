@@ -309,6 +309,11 @@ public class BookLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.aimdek.assignment.model.Book> getAllBooks() {
+		return _bookLocalService.getAllBooks();
+	}
+
+	@Override
 	public java.util.List<com.aimdek.assignment.model.Book> getAuthorBooks(
 		long authorId) {
 

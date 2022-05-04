@@ -268,6 +268,10 @@ public class BookLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<Book> getAllBooks() {
+		return getService().getAllBooks();
+	}
+
 	public static List<Book> getAuthorBooks(long authorId) {
 		return getService().getAuthorBooks(authorId);
 	}

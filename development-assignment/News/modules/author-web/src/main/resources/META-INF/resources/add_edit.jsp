@@ -15,7 +15,28 @@
 	<aui:input type="hidden" name="authorId"/>
 	<aui:input type="text" name="authorCode" label="Author-code-Label"/>
 	<aui:input type="text" name="authorName" label="Author-Name"/>
-	<aui:input type="submit" name="Submit" value="Submit"/>
+	<aui:select id="bookNameId" name="bookName">
+		
+	</aui:select>
+	
+<aui:input type="submit" name="Submit" value="Submit"/>
 	<aui:button name="Cancel" href="${viewAuthorsURL}" value="Cancel"/>
 	
 </aui:form>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	Liferay.Service(
+			  '/news.book/get-all-book',
+			  function(obj) {
+			    console.log(obj);
+			    
+			    var list = $("#<portlet:namespace/>bookNameId");
+			    for (let key of obj) {
+			    list.append(new Option(key.bookName, key.bookCode));
+			    }
+			    
+			  }
+			);
+});
+</script> 

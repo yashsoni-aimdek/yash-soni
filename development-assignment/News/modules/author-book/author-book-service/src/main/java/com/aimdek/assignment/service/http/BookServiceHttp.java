@@ -89,10 +89,42 @@ public class BookServiceHttp {
 		}
 	}
 
+	public static java.util.List<com.aimdek.assignment.model.Book> getAllBook(
+		HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				BookServiceUtil.class, "getAllBook",
+				_getAllBookParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.aimdek.assignment.model.Book>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(BookServiceHttp.class);
 
 	private static final Class<?>[] _getBookParameterTypes0 = new Class[] {
 		long.class
 	};
+	private static final Class<?>[] _getAllBookParameterTypes1 = new Class[] {};
 
 }

@@ -234,16 +234,16 @@ public interface AuthorModel
 	public void setAuthorName(String authorName);
 
 	/**
-	 * Returns the author birth day of this author.
+	 * Returns the author register date of this author.
 	 *
-	 * @return the author birth day of this author
+	 * @return the author register date of this author
 	 */
 	public Date getAuthorRegisterDate();
 
 	/**
-	 * Sets the author birth day of this author.
+	 * Sets the author register date of this author.
 	 *
-	 * @param authorRegisterDate the author birth day of this author
+	 * @param authorRegisterDate the author register date of this author
 	 */
 	public void setAuthorRegisterDate(Date authorRegisterDate);
 

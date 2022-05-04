@@ -139,16 +139,6 @@ public class AuthorWrapper
 	}
 
 	/**
-	 * Returns the author birth day of this author.
-	 *
-	 * @return the author birth day of this author
-	 */
-	@Override
-	public Date getAuthorRegisterDate() {
-		return model.getAuthorRegisterDate();
-	}
-
-	/**
 	 * Returns the author code of this author.
 	 *
 	 * @return the author code of this author
@@ -176,6 +166,16 @@ public class AuthorWrapper
 	@Override
 	public String getAuthorName() {
 		return model.getAuthorName();
+	}
+
+	/**
+	 * Returns the author register date of this author.
+	 *
+	 * @return the author register date of this author
+	 */
+	@Override
+	public Date getAuthorRegisterDate() {
+		return model.getAuthorRegisterDate();
 	}
 
 	/**
@@ -284,16 +284,6 @@ public class AuthorWrapper
 	}
 
 	/**
-	 * Sets the author birth day of this author.
-	 *
-	 * @param authorRegisterDate the author birth day of this author
-	 */
-	@Override
-	public void setAuthorRegisterDate(Date authorRegisterDate) {
-		model.setAuthorRegisterDate(authorRegisterDate);
-	}
-
-	/**
 	 * Sets the author code of this author.
 	 *
 	 * @param authorCode the author code of this author
@@ -321,6 +311,16 @@ public class AuthorWrapper
 	@Override
 	public void setAuthorName(String authorName) {
 		model.setAuthorName(authorName);
+	}
+
+	/**
+	 * Sets the author register date of this author.
+	 *
+	 * @param authorRegisterDate the author register date of this author
+	 */
+	@Override
+	public void setAuthorRegisterDate(Date authorRegisterDate) {
+		model.setAuthorRegisterDate(authorRegisterDate);
 	}
 
 	/**

@@ -238,6 +238,9 @@ public interface BookLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Book> getAllBooks();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Book> getAuthorBooks(long authorId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

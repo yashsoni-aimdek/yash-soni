@@ -14,31 +14,35 @@
 
 package com.aimdek.assignment.service.impl;
 
-import com.aimdek.assignment.model.Book;
-import com.aimdek.assignment.service.base.BookServiceBaseImpl;
-
-import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.exception.PortalException;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+
+import com.aimdek.assignment.model.Book;
+import com.aimdek.assignment.service.BookLocalServiceUtil;
+import com.aimdek.assignment.service.base.BookServiceBaseImpl;
+import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = {
-		"json.web.service.context.name=news",
-		"json.web.service.context.path=Book"
-	},
-	service = AopService.class
-)
+@Component(property = { "json.web.service.context.name=news",
+		"json.web.service.context.path=Book" }, service = AopService.class)
 public class BookServiceImpl extends BookServiceBaseImpl {
 
 	@Override
-	public Book getBook(long bookId)throws PortalException{
-		
+	public Book getBook(long bookId) throws PortalException {
+
 		return bookLocalService.getBook(bookId);
-		
+
 	}
-	
+
+	public List<Book> getAllBook() {
+
+		
+		return bookLocalService.getAllBooks();
+
+	}
+
 }

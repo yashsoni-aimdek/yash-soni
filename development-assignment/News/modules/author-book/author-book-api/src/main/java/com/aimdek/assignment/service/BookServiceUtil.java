@@ -18,6 +18,8 @@ import com.aimdek.assignment.model.Book;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * Provides the remote service utility for Book. This utility wraps
  * <code>com.aimdek.assignment.service.impl.BookServiceImpl</code> and is an
@@ -37,6 +39,10 @@ public class BookServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.aimdek.assignment.service.impl.BookServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static List<Book> getAllBook() {
+		return getService().getAllBook();
+	}
+
 	public static Book getBook(long bookId) throws PortalException {
 		return getService().getBook(bookId);
 	}

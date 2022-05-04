@@ -17,6 +17,7 @@ package com.aimdek.assignment.service.impl;
 import com.aimdek.assignment.exception.BookException;
 import com.aimdek.assignment.model.Book;
 import com.aimdek.assignment.service.BookLocalService;
+import com.aimdek.assignment.service.BookLocalServiceUtil;
 import com.aimdek.assignment.service.base.BookLocalServiceBaseImpl;
 
 import com.liferay.portal.aop.AopService;
@@ -72,6 +73,10 @@ public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 			
 		}
 		
+	}
+	
+	public List<Book> getAllBooks(){
+		return BookLocalServiceUtil.getBooks(-1, -1);
 	}
 
 
