@@ -145,7 +145,7 @@ public class BookPersistenceTest {
 
 		newBook.setBookPublishDate(RandomTestUtil.nextDate());
 
-		newBook.setAuthorId(RandomTestUtil.nextLong());
+		newBook.setAuthorId(RandomTestUtil.randomString());
 
 		_books.add(_persistence.update(newBook));
 
@@ -202,9 +202,11 @@ public class BookPersistenceTest {
 
 	@Test
 	public void testCountByAuthorId() throws Exception {
-		_persistence.countByAuthorId(RandomTestUtil.nextLong());
+		_persistence.countByAuthorId("");
 
-		_persistence.countByAuthorId(0L);
+		_persistence.countByAuthorId("null");
+
+		_persistence.countByAuthorId((String)null);
 	}
 
 	@Test
@@ -522,7 +524,7 @@ public class BookPersistenceTest {
 
 		book.setBookPublishDate(RandomTestUtil.nextDate());
 
-		book.setAuthorId(RandomTestUtil.nextLong());
+		book.setAuthorId(RandomTestUtil.randomString());
 
 		_books.add(_persistence.update(book));
 

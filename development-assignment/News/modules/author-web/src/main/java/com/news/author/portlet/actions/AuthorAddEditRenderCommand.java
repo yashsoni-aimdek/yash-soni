@@ -35,10 +35,13 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
 		long authorId = ParamUtil.getLong(renderRequest, "authorId", -1);
+		long bookId = ParamUtil.getLong(renderRequest,"bookId", -1);
 		Author author = null;	
+		Book book = null;
 		try {
 			if(authorId > 0) {
 				author = authorLocalService.getAuthor(authorId);
+				book = bookLocalService.getBook(bookId);
 //				List<Book> books = bookLocalService.getAuthorBooks(authorId);
 			}
 			
@@ -46,14 +49,15 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 			LOG.error(e.getMessage(), e);
 		}
 		renderRequest.setAttribute("author", author);
+		renderRequest.setAttribute("book", book);
 		return "/add_edit.jsp";
 	}
 	
 	@Reference
 	private AuthorLocalService authorLocalService;
 	
-//	@Reference
-//	private BookLocalService bookLocalService;
+	@Reference
+	private BookLocalService bookLocalService;
 	
 	private static final Log LOG = LogFactoryUtil.getLog(AuthorAddEditActionCommand.class);
 }

@@ -1462,7 +1462,7 @@ public class BookPersistenceImpl
 	 * @return the matching books
 	 */
 	@Override
-	public List<Book> findByAuthorId(long authorId) {
+	public List<Book> findByAuthorId(String authorId) {
 		return findByAuthorId(
 			authorId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1480,7 +1480,7 @@ public class BookPersistenceImpl
 	 * @return the range of matching books
 	 */
 	@Override
-	public List<Book> findByAuthorId(long authorId, int start, int end) {
+	public List<Book> findByAuthorId(String authorId, int start, int end) {
 		return findByAuthorId(authorId, start, end, null);
 	}
 
@@ -1499,7 +1499,7 @@ public class BookPersistenceImpl
 	 */
 	@Override
 	public List<Book> findByAuthorId(
-		long authorId, int start, int end,
+		String authorId, int start, int end,
 		OrderByComparator<Book> orderByComparator) {
 
 		return findByAuthorId(authorId, start, end, orderByComparator, true);
@@ -1521,8 +1521,10 @@ public class BookPersistenceImpl
 	 */
 	@Override
 	public List<Book> findByAuthorId(
-		long authorId, int start, int end,
+		String authorId, int start, int end,
 		OrderByComparator<Book> orderByComparator, boolean useFinderCache) {
+
+		authorId = Objects.toString(authorId, "");
 
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1547,7 +1549,7 @@ public class BookPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Book book : list) {
-					if (authorId != book.getAuthorId()) {
+					if (!authorId.equals(book.getAuthorId())) {
 						list = null;
 
 						break;
@@ -1569,7 +1571,16 @@ public class BookPersistenceImpl
 
 			sb.append(_SQL_SELECT_BOOK_WHERE);
 
-			sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_2);
+			boolean bindAuthorId = false;
+
+			if (authorId.isEmpty()) {
+				sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_3);
+			}
+			else {
+				bindAuthorId = true;
+
+				sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_2);
+			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1590,7 +1601,9 @@ public class BookPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				queryPos.add(authorId);
+				if (bindAuthorId) {
+					queryPos.add(authorId);
+				}
 
 				list = (List<Book>)QueryUtil.list(
 					query, getDialect(), start, end);
@@ -1622,7 +1635,7 @@ public class BookPersistenceImpl
 	 */
 	@Override
 	public Book findByAuthorId_First(
-			long authorId, OrderByComparator<Book> orderByComparator)
+			String authorId, OrderByComparator<Book> orderByComparator)
 		throws NoSuchBookException {
 
 		Book book = fetchByAuthorId_First(authorId, orderByComparator);
@@ -1652,7 +1665,7 @@ public class BookPersistenceImpl
 	 */
 	@Override
 	public Book fetchByAuthorId_First(
-		long authorId, OrderByComparator<Book> orderByComparator) {
+		String authorId, OrderByComparator<Book> orderByComparator) {
 
 		List<Book> list = findByAuthorId(authorId, 0, 1, orderByComparator);
 
@@ -1673,7 +1686,7 @@ public class BookPersistenceImpl
 	 */
 	@Override
 	public Book findByAuthorId_Last(
-			long authorId, OrderByComparator<Book> orderByComparator)
+			String authorId, OrderByComparator<Book> orderByComparator)
 		throws NoSuchBookException {
 
 		Book book = fetchByAuthorId_Last(authorId, orderByComparator);
@@ -1703,7 +1716,7 @@ public class BookPersistenceImpl
 	 */
 	@Override
 	public Book fetchByAuthorId_Last(
-		long authorId, OrderByComparator<Book> orderByComparator) {
+		String authorId, OrderByComparator<Book> orderByComparator) {
 
 		int count = countByAuthorId(authorId);
 
@@ -1732,9 +1745,11 @@ public class BookPersistenceImpl
 	 */
 	@Override
 	public Book[] findByAuthorId_PrevAndNext(
-			long bookId, long authorId,
+			long bookId, String authorId,
 			OrderByComparator<Book> orderByComparator)
 		throws NoSuchBookException {
+
+		authorId = Objects.toString(authorId, "");
 
 		Book book = findByPrimaryKey(bookId);
 
@@ -1764,7 +1779,7 @@ public class BookPersistenceImpl
 	}
 
 	protected Book getByAuthorId_PrevAndNext(
-		Session session, Book book, long authorId,
+		Session session, Book book, String authorId,
 		OrderByComparator<Book> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
@@ -1780,7 +1795,16 @@ public class BookPersistenceImpl
 
 		sb.append(_SQL_SELECT_BOOK_WHERE);
 
-		sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_2);
+		boolean bindAuthorId = false;
+
+		if (authorId.isEmpty()) {
+			sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_3);
+		}
+		else {
+			bindAuthorId = true;
+
+			sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_2);
+		}
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -1851,7 +1875,9 @@ public class BookPersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(query);
 
-		queryPos.add(authorId);
+		if (bindAuthorId) {
+			queryPos.add(authorId);
+		}
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -1877,7 +1903,7 @@ public class BookPersistenceImpl
 	 * @param authorId the author ID
 	 */
 	@Override
-	public void removeByAuthorId(long authorId) {
+	public void removeByAuthorId(String authorId) {
 		for (Book book :
 				findByAuthorId(
 					authorId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -1893,7 +1919,9 @@ public class BookPersistenceImpl
 	 * @return the number of matching books
 	 */
 	@Override
-	public int countByAuthorId(long authorId) {
+	public int countByAuthorId(String authorId) {
+		authorId = Objects.toString(authorId, "");
+
 		FinderPath finderPath = _finderPathCountByAuthorId;
 
 		Object[] finderArgs = new Object[] {authorId};
@@ -1905,7 +1933,16 @@ public class BookPersistenceImpl
 
 			sb.append(_SQL_COUNT_BOOK_WHERE);
 
-			sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_2);
+			boolean bindAuthorId = false;
+
+			if (authorId.isEmpty()) {
+				sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_3);
+			}
+			else {
+				bindAuthorId = true;
+
+				sb.append(_FINDER_COLUMN_AUTHORID_AUTHORID_2);
+			}
 
 			String sql = sb.toString();
 
@@ -1918,7 +1955,9 @@ public class BookPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				queryPos.add(authorId);
+				if (bindAuthorId) {
+					queryPos.add(authorId);
+				}
 
 				count = (Long)query.uniqueResult();
 
@@ -1937,6 +1976,9 @@ public class BookPersistenceImpl
 
 	private static final String _FINDER_COLUMN_AUTHORID_AUTHORID_2 =
 		"book.authorId = ?";
+
+	private static final String _FINDER_COLUMN_AUTHORID_AUTHORID_3 =
+		"(book.authorId IS NULL OR book.authorId = '')";
 
 	public BookPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
@@ -2849,19 +2891,19 @@ public class BookPersistenceImpl
 		_finderPathWithPaginationFindByAuthorId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByAuthorId",
 			new String[] {
-				Long.class.getName(), Integer.class.getName(),
+				String.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			},
 			new String[] {"authorId"}, true);
 
 		_finderPathWithoutPaginationFindByAuthorId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByAuthorId",
-			new String[] {Long.class.getName()}, new String[] {"authorId"},
+			new String[] {String.class.getName()}, new String[] {"authorId"},
 			true);
 
 		_finderPathCountByAuthorId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAuthorId",
-			new String[] {Long.class.getName()}, new String[] {"authorId"},
+			new String[] {String.class.getName()}, new String[] {"authorId"},
 			false);
 
 		_setBookUtilPersistence(this);

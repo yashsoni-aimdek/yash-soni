@@ -9,6 +9,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.liferay.counter.kernel.service.CounterLocalService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -23,7 +24,10 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.news.author.constants.AuthorWebPortletKeys;
 import com.aimdek.assignment.exception.AuthorException;
 import com.aimdek.assignment.model.Author;
+import com.aimdek.assignment.model.Book;
 import com.aimdek.assignment.service.AuthorLocalService;
+import com.aimdek.assignment.service.BookLocalService;
+import com.aimdek.assignment.service.BookLocalServiceUtil;
 
 @Component(
 		immediate = true,
@@ -42,14 +46,10 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand{
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Author.class.getName(),actionRequest);
 		
 		long authorId = ParamUtil.getLong(actionRequest, "authorId", -1);
-		
-		
 		try{
 			if(authorId > 0) {
-				
 				Author author = authorLocalService.getAuthor(authorId);
 				
-			
 				preparedAuthorDetails(actionRequest, author);
 				authorLocalService.updateAuthor(author, serviceContext);
 				
@@ -71,12 +71,25 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand{
 		 
 	}
 	
-	private void preparedAuthorDetails(ActionRequest actionRequest, Author author) {
+	private void preparedAuthorDetails(ActionRequest actionRequest, Author author) throws NumberFormatException, PortalException {
 		
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		
 		String authorCode = ParamUtil.getString(actionRequest,"authorCode", "");
 		String authorName = ParamUtil.getString(actionRequest, "authorName", "");
+		String[] bookIds = actionRequest.getParameterValues("bookId");
+
+		StringBuilder bookIdBuilder = new StringBuilder();
+		for(int i=0; i<bookIds.length; i++) {
+			Book book = BookLocalServiceUtil.getBook(Long.parseLong(bookIds[i]));
+			book.setAuthorId(book.getAuthorId() + "," + author.getAuthorId());
+			BookLocalServiceUtil.updateBook(book);
+			bookIdBuilder.append(bookIds[i]);
+			bookIdBuilder.append(",");
+		}
+		String bookIdstr = bookIdBuilder.toString();
+		int lastIndexOfComma = bookIdBuilder.lastIndexOf(",");
+		bookIdBuilder.replace(lastIndexOfComma, lastIndexOfComma+1, "");
+		author.setBookId(bookIdBuilder.toString());
 		
 		author.setGroupId(themeDisplay.getScopeGroupId());
 		author.setUserId(themeDisplay.getUserId());
@@ -86,6 +99,7 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand{
 		author.setAuthorName(authorName);
 		author.setAuthorRegisterDate(new Date());
 		
+		LOG.info("Book Id: " +bookIdstr);
 		LOG.info("Author Code: " +authorCode);
 		LOG.info("Author Name: " +authorName);
 		
@@ -94,6 +108,9 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand{
 	
 	@Reference
 	private AuthorLocalService authorLocalService;
+	
+	@Reference
+	private BookLocalService bookLocalService;
 	
 	@Reference
 	private CounterLocalService counterLocalService;

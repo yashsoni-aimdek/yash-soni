@@ -10,7 +10,7 @@ create table News_Author (
 	authorCode VARCHAR(75) null,
 	authorName VARCHAR(75) null,
 	authorRegisterDate DATE null,
-	bookId LONG
+	bookId VARCHAR(75) null
 );
 
 create table News_Author_Book (
@@ -32,5 +32,5 @@ create table News_Book (
 	bookCode VARCHAR(75) null,
 	bookName VARCHAR(75) null,
 	bookPublishDate DATE null,
-	authorId LONG
+	authorId VARCHAR(75) null
 );

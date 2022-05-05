@@ -528,7 +528,7 @@ public class BookUtil {
 	 * @param authorId the author ID
 	 * @return the matching books
 	 */
-	public static List<Book> findByAuthorId(long authorId) {
+	public static List<Book> findByAuthorId(String authorId) {
 		return getPersistence().findByAuthorId(authorId);
 	}
 
@@ -544,7 +544,9 @@ public class BookUtil {
 	 * @param end the upper bound of the range of books (not inclusive)
 	 * @return the range of matching books
 	 */
-	public static List<Book> findByAuthorId(long authorId, int start, int end) {
+	public static List<Book> findByAuthorId(
+		String authorId, int start, int end) {
+
 		return getPersistence().findByAuthorId(authorId, start, end);
 	}
 
@@ -562,7 +564,7 @@ public class BookUtil {
 	 * @return the ordered range of matching books
 	 */
 	public static List<Book> findByAuthorId(
-		long authorId, int start, int end,
+		String authorId, int start, int end,
 		OrderByComparator<Book> orderByComparator) {
 
 		return getPersistence().findByAuthorId(
@@ -584,7 +586,7 @@ public class BookUtil {
 	 * @return the ordered range of matching books
 	 */
 	public static List<Book> findByAuthorId(
-		long authorId, int start, int end,
+		String authorId, int start, int end,
 		OrderByComparator<Book> orderByComparator, boolean useFinderCache) {
 
 		return getPersistence().findByAuthorId(
@@ -600,7 +602,7 @@ public class BookUtil {
 	 * @throws NoSuchBookException if a matching book could not be found
 	 */
 	public static Book findByAuthorId_First(
-			long authorId, OrderByComparator<Book> orderByComparator)
+			String authorId, OrderByComparator<Book> orderByComparator)
 		throws com.aimdek.assignment.exception.NoSuchBookException {
 
 		return getPersistence().findByAuthorId_First(
@@ -615,7 +617,7 @@ public class BookUtil {
 	 * @return the first matching book, or <code>null</code> if a matching book could not be found
 	 */
 	public static Book fetchByAuthorId_First(
-		long authorId, OrderByComparator<Book> orderByComparator) {
+		String authorId, OrderByComparator<Book> orderByComparator) {
 
 		return getPersistence().fetchByAuthorId_First(
 			authorId, orderByComparator);
@@ -630,7 +632,7 @@ public class BookUtil {
 	 * @throws NoSuchBookException if a matching book could not be found
 	 */
 	public static Book findByAuthorId_Last(
-			long authorId, OrderByComparator<Book> orderByComparator)
+			String authorId, OrderByComparator<Book> orderByComparator)
 		throws com.aimdek.assignment.exception.NoSuchBookException {
 
 		return getPersistence().findByAuthorId_Last(
@@ -645,7 +647,7 @@ public class BookUtil {
 	 * @return the last matching book, or <code>null</code> if a matching book could not be found
 	 */
 	public static Book fetchByAuthorId_Last(
-		long authorId, OrderByComparator<Book> orderByComparator) {
+		String authorId, OrderByComparator<Book> orderByComparator) {
 
 		return getPersistence().fetchByAuthorId_Last(
 			authorId, orderByComparator);
@@ -661,7 +663,7 @@ public class BookUtil {
 	 * @throws NoSuchBookException if a book with the primary key could not be found
 	 */
 	public static Book[] findByAuthorId_PrevAndNext(
-			long bookId, long authorId,
+			long bookId, String authorId,
 			OrderByComparator<Book> orderByComparator)
 		throws com.aimdek.assignment.exception.NoSuchBookException {
 
@@ -674,7 +676,7 @@ public class BookUtil {
 	 *
 	 * @param authorId the author ID
 	 */
-	public static void removeByAuthorId(long authorId) {
+	public static void removeByAuthorId(String authorId) {
 		getPersistence().removeByAuthorId(authorId);
 	}
 
@@ -684,7 +686,7 @@ public class BookUtil {
 	 * @param authorId the author ID
 	 * @return the number of matching books
 	 */
-	public static int countByAuthorId(long authorId) {
+	public static int countByAuthorId(String authorId) {
 		return getPersistence().countByAuthorId(authorId);
 	}
 

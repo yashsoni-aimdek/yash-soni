@@ -65,7 +65,7 @@ public class BookIndexer extends BaseIndexer<Book>{
 		
 		document.addNumber("bookId", book.getBookId());
 		document.addText("bookCode", book.getBookCode());
-		document.addNumber("bookName", book.getBookName());
+		document.addText("bookName", book.getBookName());
 		
 		return document;
 	}

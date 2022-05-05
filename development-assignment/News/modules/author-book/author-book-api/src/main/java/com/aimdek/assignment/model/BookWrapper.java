@@ -126,7 +126,7 @@ public class BookWrapper
 			setBookPublishDate(bookPublishDate);
 		}
 
-		Long authorId = (Long)attributes.get("authorId");
+		String authorId = (String)attributes.get("authorId");
 
 		if (authorId != null) {
 			setAuthorId(authorId);
@@ -144,7 +144,7 @@ public class BookWrapper
 	 * @return the author ID of this book
 	 */
 	@Override
-	public long getAuthorId() {
+	public String getAuthorId() {
 		return model.getAuthorId();
 	}
 
@@ -289,7 +289,7 @@ public class BookWrapper
 	 * @param authorId the author ID of this book
 	 */
 	@Override
-	public void setAuthorId(long authorId) {
+	public void setAuthorId(String authorId) {
 		model.setAuthorId(authorId);
 	}
 

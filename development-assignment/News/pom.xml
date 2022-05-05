@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>news</groupId>
   <artifactId>News</artifactId>
@@ -9,7 +10,6 @@
   <modules>
     <module>modules</module>
     <module>themes</module>
-    <module>Default</module>
   </modules>
   <properties>
     <liferay.workspace.bundle.url>https://releases-cdn.liferay.com/portal/7.4.3.13-ga13/liferay-ce-portal-tomcat-7.4.3.13-ga13-20220223110450724.tar.gz</liferay.workspace.bundle.url>
@@ -76,10 +76,9 @@
             </goals>
           </execution>
         </executions>
-
         <configuration>
-    		<liferayHome>D:\liferay-ce-portal-tomcat-7.4.3.13-ga13-20220223110450724\liferay-ce-portal-7.4.3.13-ga13</liferayHome>
-		</configuration>
+          <liferayHome>D:\liferay-ce-portal-tomcat-7.4.3.13-ga13-20220223110450724\liferay-ce-portal-7.4.3.13-ga13</liferayHome>
+        </configuration>
       </plugin>
     </plugins>
   </build>

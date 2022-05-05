@@ -393,7 +393,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @param authorId the author ID
 	 * @return the matching books
 	 */
-	public java.util.List<Book> findByAuthorId(long authorId);
+	public java.util.List<Book> findByAuthorId(String authorId);
 
 	/**
 	 * Returns a range of all the books where authorId = &#63;.
@@ -408,7 +408,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @return the range of matching books
 	 */
 	public java.util.List<Book> findByAuthorId(
-		long authorId, int start, int end);
+		String authorId, int start, int end);
 
 	/**
 	 * Returns an ordered range of all the books where authorId = &#63;.
@@ -424,7 +424,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @return the ordered range of matching books
 	 */
 	public java.util.List<Book> findByAuthorId(
-		long authorId, int start, int end,
+		String authorId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Book>
 			orderByComparator);
 
@@ -443,7 +443,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @return the ordered range of matching books
 	 */
 	public java.util.List<Book> findByAuthorId(
-		long authorId, int start, int end,
+		String authorId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Book>
 			orderByComparator,
 		boolean useFinderCache);
@@ -457,7 +457,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @throws NoSuchBookException if a matching book could not be found
 	 */
 	public Book findByAuthorId_First(
-			long authorId,
+			String authorId,
 			com.liferay.portal.kernel.util.OrderByComparator<Book>
 				orderByComparator)
 		throws NoSuchBookException;
@@ -470,7 +470,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @return the first matching book, or <code>null</code> if a matching book could not be found
 	 */
 	public Book fetchByAuthorId_First(
-		long authorId,
+		String authorId,
 		com.liferay.portal.kernel.util.OrderByComparator<Book>
 			orderByComparator);
 
@@ -483,7 +483,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @throws NoSuchBookException if a matching book could not be found
 	 */
 	public Book findByAuthorId_Last(
-			long authorId,
+			String authorId,
 			com.liferay.portal.kernel.util.OrderByComparator<Book>
 				orderByComparator)
 		throws NoSuchBookException;
@@ -496,7 +496,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @return the last matching book, or <code>null</code> if a matching book could not be found
 	 */
 	public Book fetchByAuthorId_Last(
-		long authorId,
+		String authorId,
 		com.liferay.portal.kernel.util.OrderByComparator<Book>
 			orderByComparator);
 
@@ -510,7 +510,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @throws NoSuchBookException if a book with the primary key could not be found
 	 */
 	public Book[] findByAuthorId_PrevAndNext(
-			long bookId, long authorId,
+			long bookId, String authorId,
 			com.liferay.portal.kernel.util.OrderByComparator<Book>
 				orderByComparator)
 		throws NoSuchBookException;
@@ -520,7 +520,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 *
 	 * @param authorId the author ID
 	 */
-	public void removeByAuthorId(long authorId);
+	public void removeByAuthorId(String authorId);
 
 	/**
 	 * Returns the number of books where authorId = &#63;.
@@ -528,7 +528,7 @@ public interface BookPersistence extends BasePersistence<Book> {
 	 * @param authorId the author ID
 	 * @return the number of matching books
 	 */
-	public int countByAuthorId(long authorId);
+	public int countByAuthorId(String authorId);
 
 	/**
 	 * Caches the book in the entity cache if it is enabled.

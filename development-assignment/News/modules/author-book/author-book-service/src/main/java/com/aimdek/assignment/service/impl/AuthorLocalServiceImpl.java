@@ -38,13 +38,13 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class AuthorLocalServiceImpl extends AuthorLocalServiceBaseImpl {
 	
-	@Indexable(type = IndexableType.REINDEX)
-	public Author addAuthor(Author author,ServiceContext serviceContext) throws PortalException{
-		
-		validateAuthor(author);
-		return addAuthor(author);
-		
-	}
+//	@Indexable(type = IndexableType.REINDEX)
+//	public Author addAuthor(Author author,Book book, ServiceContext serviceContext) throws PortalException{
+//		
+//		validateAuthor(author);
+//		return addAuthor(author);
+//		
+//	}
 	@Indexable(type = IndexableType.REINDEX)
 	public Author updateAuthor(Author author,ServiceContext serviceContext) throws PortalException{
 		
@@ -67,11 +67,17 @@ public class AuthorLocalServiceImpl extends AuthorLocalServiceBaseImpl {
 			
 		}
 		if(Validator.isNull(author.getAuthorName())) {
-			
+			  
 			throw new AuthorException("author-name-required");
 			
 		}
 		
+	}
+//	@Override
+	@Indexable(type = IndexableType.REINDEX)
+	public Author addAuthor(Author author, ServiceContext serviceContext) throws PortalException {
+		validateAuthor(author);
+		return addAuthor(author);
 	}
 	
 	

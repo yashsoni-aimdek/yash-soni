@@ -1,6 +1,8 @@
 <%@page import="com.aimdek.assignment.model.Author"%>
 <%@ include file="/init.jsp" %>
 
+<link rel="stylesheet" href="css/multi-select.min.css">
+
 <portlet:actionURL name="/author/add/edit" var="addAuthorURL"/>
 
 <portlet:renderURL var="viewAuthorsURL">
@@ -15,16 +17,19 @@
 	<aui:input type="hidden" name="authorId"/>
 	<aui:input type="text" name="authorCode" label="Author-code-Label"/>
 	<aui:input type="text" name="authorName" label="Author-Name"/>
-	<aui:select id="bookNameId" name="bookName">
-		
-	</aui:select>
 	
+ 	<aui:select id="bookNameId" name="bookId" multiple="true">
+
+	</aui:select>
+
 <aui:input type="submit" name="Submit" value="Submit"/>
 	<aui:button name="Cancel" href="${viewAuthorsURL}" value="Cancel"/>
 	
 </aui:form>
 
-<script type="text/javascript">
+ <script type="text/javascript" >	
+
+
 $(document).ready(function() {
 	Liferay.Service(
 			  '/news.book/get-all-book',
@@ -33,10 +38,11 @@ $(document).ready(function() {
 			    
 			    var list = $("#<portlet:namespace/>bookNameId");
 			    for (let key of obj) {
-			    list.append(new Option(key.bookName, key.bookCode));
+			    list.append(new Option(key.bookName, key.bookId));
 			    }
 			    
 			  }
 			);
 });
-</script> 
+</script>
+

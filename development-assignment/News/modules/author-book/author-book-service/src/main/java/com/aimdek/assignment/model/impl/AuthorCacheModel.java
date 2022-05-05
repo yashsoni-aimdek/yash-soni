@@ -150,7 +150,12 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 			authorImpl.setAuthorRegisterDate(new Date(authorRegisterDate));
 		}
 
-		authorImpl.setBookId(bookId);
+		if (bookId == null) {
+			authorImpl.setBookId("");
+		}
+		else {
+			authorImpl.setBookId(bookId);
+		}
 
 		authorImpl.resetOriginalValues();
 
@@ -174,8 +179,7 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 		authorCode = objectInput.readUTF();
 		authorName = objectInput.readUTF();
 		authorRegisterDate = objectInput.readLong();
-
-		bookId = objectInput.readLong();
+		bookId = objectInput.readUTF();
 	}
 
 	@Override
@@ -221,7 +225,12 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 
 		objectOutput.writeLong(authorRegisterDate);
 
-		objectOutput.writeLong(bookId);
+		if (bookId == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(bookId);
+		}
 	}
 
 	public String uuid;
@@ -235,6 +244,6 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 	public String authorCode;
 	public String authorName;
 	public long authorRegisterDate;
-	public long bookId;
+	public String bookId;
 
 }

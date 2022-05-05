@@ -27,7 +27,7 @@
 		<column name="authorCode" type="String" />
 		<column name="authorName" type="String" />
 		<column name="authorRegisterDate" type="Date" />
-		<column name="bookId" type="long" />
+		<column name="bookId" type="String" />
 		<column type="Collection" name="books" mapping-table="Author_Book" entity="Book"/>
 
 		<!-- Order -->
@@ -71,7 +71,7 @@
 		<column name="bookCode" type="String" />
 		<column name="bookName" type="String" />
 		<column name="bookPublishDate" type="Date"/>
-		<column name="authorId" type="long" />
+		<column name="authorId" type="String" />
 		<column type="Collection" name="authors" mapping-table="Author_Book" entity="Author" />
 
 		<!-- Order -->

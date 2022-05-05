@@ -126,7 +126,7 @@ public class AuthorWrapper
 			setAuthorRegisterDate(authorRegisterDate);
 		}
 
-		Long bookId = (Long)attributes.get("bookId");
+		String bookId = (String)attributes.get("bookId");
 
 		if (bookId != null) {
 			setBookId(bookId);
@@ -184,7 +184,7 @@ public class AuthorWrapper
 	 * @return the book ID of this author
 	 */
 	@Override
-	public long getBookId() {
+	public String getBookId() {
 		return model.getBookId();
 	}
 
@@ -329,7 +329,7 @@ public class AuthorWrapper
 	 * @param bookId the book ID of this author
 	 */
 	@Override
-	public void setBookId(long bookId) {
+	public void setBookId(String bookId) {
 		model.setBookId(bookId);
 	}
 

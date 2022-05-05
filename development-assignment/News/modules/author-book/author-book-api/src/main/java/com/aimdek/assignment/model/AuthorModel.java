@@ -252,14 +252,15 @@ public interface AuthorModel
 	 *
 	 * @return the book ID of this author
 	 */
-	public long getBookId();
+	@AutoEscape
+	public String getBookId();
 
 	/**
 	 * Sets the book ID of this author.
 	 *
 	 * @param bookId the book ID of this author
 	 */
-	public void setBookId(long bookId);
+	public void setBookId(String bookId);
 
 	@Override
 	public Author cloneWithOriginalValues();

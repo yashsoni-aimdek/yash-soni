@@ -145,7 +145,7 @@ public class AuthorPersistenceTest {
 
 		newAuthor.setAuthorRegisterDate(RandomTestUtil.nextDate());
 
-		newAuthor.setBookId(RandomTestUtil.nextLong());
+		newAuthor.setBookId(RandomTestUtil.randomString());
 
 		_authors.add(_persistence.update(newAuthor));
 
@@ -522,7 +522,7 @@ public class AuthorPersistenceTest {
 
 		author.setAuthorRegisterDate(RandomTestUtil.nextDate());
 
-		author.setBookId(RandomTestUtil.nextLong());
+		author.setBookId(RandomTestUtil.randomString());
 
 		_authors.add(_persistence.update(author));
 

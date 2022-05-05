@@ -79,7 +79,7 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"bookCode", Types.VARCHAR}, {"bookName", Types.VARCHAR},
-		{"bookPublishDate", Types.TIMESTAMP}, {"authorId", Types.BIGINT}
+		{"bookPublishDate", Types.TIMESTAMP}, {"authorId", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,11 +97,11 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		TABLE_COLUMNS_MAP.put("bookCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("bookName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("bookPublishDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("authorId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("authorId", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table News_Book (uuid_ VARCHAR(75) null,bookId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,bookCode VARCHAR(75) null,bookName VARCHAR(75) null,bookPublishDate DATE null,authorId LONG)";
+		"create table News_Book (uuid_ VARCHAR(75) null,bookId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,bookCode VARCHAR(75) null,bookName VARCHAR(75) null,bookPublishDate DATE null,authorId VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table News_Book";
 
@@ -327,7 +327,7 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 			(BiConsumer<Book, Date>)Book::setBookPublishDate);
 		attributeGetterFunctions.put("authorId", Book::getAuthorId);
 		attributeSetterBiConsumers.put(
-			"authorId", (BiConsumer<Book, Long>)Book::setAuthorId);
+			"authorId", (BiConsumer<Book, String>)Book::setAuthorId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -572,12 +572,17 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 
 	@JSON
 	@Override
-	public long getAuthorId() {
-		return _authorId;
+	public String getAuthorId() {
+		if (_authorId == null) {
+			return "";
+		}
+		else {
+			return _authorId;
+		}
 	}
 
 	@Override
-	public void setAuthorId(long authorId) {
+	public void setAuthorId(String authorId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -590,9 +595,8 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 	 *             #getColumnOriginalValue(String)}
 	 */
 	@Deprecated
-	public long getOriginalAuthorId() {
-		return GetterUtil.getLong(
-			this.<Long>getColumnOriginalValue("authorId"));
+	public String getOriginalAuthorId() {
+		return getColumnOriginalValue("authorId");
 	}
 
 	@Override
@@ -692,7 +696,7 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		bookImpl.setBookName(this.<String>getColumnOriginalValue("bookName"));
 		bookImpl.setBookPublishDate(
 			this.<Date>getColumnOriginalValue("bookPublishDate"));
-		bookImpl.setAuthorId(this.<Long>getColumnOriginalValue("authorId"));
+		bookImpl.setAuthorId(this.<String>getColumnOriginalValue("authorId"));
 
 		return bookImpl;
 	}
@@ -837,6 +841,12 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 
 		bookCacheModel.authorId = getAuthorId();
 
+		String authorId = bookCacheModel.authorId;
+
+		if ((authorId != null) && (authorId.length() == 0)) {
+			bookCacheModel.authorId = null;
+		}
+
 		return bookCacheModel;
 	}
 
@@ -937,7 +947,7 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 	private String _bookCode;
 	private String _bookName;
 	private Date _bookPublishDate;
-	private long _authorId;
+	private String _authorId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
