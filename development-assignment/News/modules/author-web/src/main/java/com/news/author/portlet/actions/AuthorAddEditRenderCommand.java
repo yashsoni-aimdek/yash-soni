@@ -42,7 +42,6 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 			if(authorId > 0) {
 				author = authorLocalService.getAuthor(authorId);
 				book = bookLocalService.getBook(bookId);
-//				List<Book> books = bookLocalService.getAuthorBooks(authorId);
 			}
 			
 		}catch(PortalException e) {
