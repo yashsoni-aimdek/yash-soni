@@ -60,6 +60,7 @@ public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 	public Book deleteBook(long	bookId) throws PortalException{
 			
 		return super.deleteBook(bookId);
+		
 	}
 	
 	private void validateBook(Book book) throws BookException{

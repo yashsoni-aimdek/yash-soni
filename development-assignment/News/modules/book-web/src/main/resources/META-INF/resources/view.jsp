@@ -1,3 +1,10 @@
+<%@page import="com.liferay.portal.kernel.util.Validator"%>
+<%@page import="com.liferay.portal.kernel.log.LogFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.log.Log"%>
+<%@page import="com.aimdek.assignment.model.Book"%>
+<%@page import="java.util.List"%>
+<%@page import="com.aimdek.assignment.service.AuthorLocalServiceUtil"%>
+<%@page import="com.aimdek.assignment.model.Author"%>
 <%@ include file="/init.jsp" %>
 
 <portlet:renderURL var="addBookURL">
@@ -18,6 +25,7 @@
 		<th><liferay-ui:message key="book.id" /></th>
 		<th><liferay-ui:message key="book.code" /></th>
 		<th><liferay-ui:message key="book.name" /></th>
+		<th><liferay-ui:message key="author.name" /></th>
 		<th><liferay-ui:message key="actions" /></th>
 	</tr>
 	<c:forEach items="${books}" var="book">
@@ -25,6 +33,29 @@
 			<td>${book.bookId}</td>
 			<td>${book.bookCode}</td>
 			<td>${book.bookName}</td>
+			<%
+				String[] authors = ((Book)pageContext.getAttribute("book")).getAuthorId().split(",");
+				StringBuilder authorNames = new StringBuilder();
+				Log log = LogFactoryUtil.getLog(this.getClass());
+				log.info("Author names fetched : " + authorNames);
+				for(int i=0; i<authors.length;i++){					
+					long authorId = Long.parseLong(authors[i]);
+					if(authorId != 0){
+						Author author = AuthorLocalServiceUtil.getAuthor(authorId);
+						authorNames.append(author.getAuthorName());
+						authorNames.append(",");
+					}
+				}
+				if(authorNames.toString().length()>0){
+					int lastIndexOfComma = authorNames.lastIndexOf(",");
+					log.info("Author Names : " + authorNames);
+					log.info("LastIndexOfComma : " + lastIndexOfComma);
+					authorNames = authorNames.replace(lastIndexOfComma, lastIndexOfComma+1, "");
+				}else{
+					authorNames.append("Unknown Author");
+				}
+			%>
+			<td><%= authorNames.toString()%></td>
 			<td>
 			
 				

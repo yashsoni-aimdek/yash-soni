@@ -117,7 +117,6 @@
 		<th><liferay-ui:message key="author.id" /></th>
 		<th><liferay-ui:message key="author.code" /></th>
 		<th><liferay-ui:message key="author.name" /></th>
-		<th><liferay-ui:message key="author.bookId"/></th>
 		<th><liferay-ui:message key="actions" /></th>
 	</tr>
 	<c:forEach items="${authors}" var="author">
@@ -125,7 +124,6 @@
 			<td>${author.authorId}</td>
 			<td>${author.authorCode}</td>
 			<td>${author.authorName}</td>
-			<td>${author.bookId}</td>
 			<td>
 			
 				

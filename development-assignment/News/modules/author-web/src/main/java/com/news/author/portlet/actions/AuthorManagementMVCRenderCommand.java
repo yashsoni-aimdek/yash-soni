@@ -11,6 +11,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.aimdek.assignment.model.Author;
 import com.aimdek.assignment.service.AuthorLocalService;
+import com.aimdek.assignment.service.BookLocalService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.news.author.constants.AuthorWebPortletKeys;
 
@@ -30,10 +31,14 @@ public class AuthorManagementMVCRenderCommand implements MVCRenderCommand{
 		List<Author> authors = authorLocalService.getAuthors(-1, -1);
 		renderRequest.setAttribute("authors", authors);
 		
+		
 		return "/view.jsp";
 	}
 	
 	@Reference
 	private AuthorLocalService authorLocalService;
+	
+	@Reference
+	private BookLocalService bookLocalService;
 
 }

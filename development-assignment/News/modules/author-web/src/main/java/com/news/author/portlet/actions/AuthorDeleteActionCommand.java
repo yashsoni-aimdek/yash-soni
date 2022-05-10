@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
+import org.jsoup.select.Evaluator.IsEmpty;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -21,6 +22,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.news.author.constants.AuthorWebPortletKeys;
 import com.aimdek.assignment.model.Author;
 import com.aimdek.assignment.service.AuthorLocalService;
+import com.aimdek.assignment.service.BookLocalService;
 
 @Component(
 		immediate = true,
@@ -36,14 +38,22 @@ public class AuthorDeleteActionCommand extends BaseMVCActionCommand{
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		
 		long authorId = ParamUtil.getLong(actionRequest, "authorId", -1);
+		long bookId = ParamUtil.getLong(actionRequest, "bookId", -1);
 		authorLocalService.deleteAuthor(authorId);
 		
-		 
+		try {
+		
+		}catch(Exception e) {
+			
+		}
+		
 	}
 	
 	@Reference
 	private AuthorLocalService authorLocalService;
 	
+	@Reference
+	private BookLocalService bookLocalService;
 	
 	private static final Log LOG = LogFactoryUtil.getLog(AuthorDeleteActionCommand.class.getName());
 

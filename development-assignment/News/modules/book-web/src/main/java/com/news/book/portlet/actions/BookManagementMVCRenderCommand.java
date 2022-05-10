@@ -30,8 +30,11 @@ public class BookManagementMVCRenderCommand implements MVCRenderCommand {
 		List<Book> book = bookLocalService.getBooks(-1, -1);
 		renderRequest.setAttribute("books", book);
 		
+		
 		return "/view.jsp";
 	}
 	@Reference
 	private BookLocalService bookLocalService;
+	
+	
 }

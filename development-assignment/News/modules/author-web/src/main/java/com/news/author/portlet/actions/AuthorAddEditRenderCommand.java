@@ -49,6 +49,7 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 		}
 		renderRequest.setAttribute("author", author);
 		renderRequest.setAttribute("book", book);
+		renderRequest.setAttribute("allBooks",bookLocalService.getAllBooks());
 		return "/add_edit.jsp";
 	}
 	
