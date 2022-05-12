@@ -145,8 +145,6 @@ public class AuthorPersistenceTest {
 
 		newAuthor.setAuthorRegisterDate(RandomTestUtil.nextDate());
 
-		newAuthor.setBookId(RandomTestUtil.randomString());
-
 		_authors.add(_persistence.update(newAuthor));
 
 		Author existingAuthor = _persistence.findByPrimaryKey(
@@ -175,7 +173,6 @@ public class AuthorPersistenceTest {
 		Assert.assertEquals(
 			Time.getShortTimestamp(existingAuthor.getAuthorRegisterDate()),
 			Time.getShortTimestamp(newAuthor.getAuthorRegisterDate()));
-		Assert.assertEquals(existingAuthor.getBookId(), newAuthor.getBookId());
 	}
 
 	@Test
@@ -233,7 +230,7 @@ public class AuthorPersistenceTest {
 			"News_Author", "uuid", true, "authorId", true, "groupId", true,
 			"companyId", true, "userId", true, "userName", true, "createDate",
 			true, "modifiedDate", true, "authorCode", true, "authorName", true,
-			"authorRegisterDate", true, "bookId", true);
+			"authorRegisterDate", true);
 	}
 
 	@Test
@@ -521,8 +518,6 @@ public class AuthorPersistenceTest {
 		author.setAuthorName(RandomTestUtil.randomString());
 
 		author.setAuthorRegisterDate(RandomTestUtil.nextDate());
-
-		author.setBookId(RandomTestUtil.randomString());
 
 		_authors.add(_persistence.update(author));
 

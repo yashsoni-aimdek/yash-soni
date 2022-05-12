@@ -247,21 +247,6 @@ public interface AuthorModel
 	 */
 	public void setAuthorRegisterDate(Date authorRegisterDate);
 
-	/**
-	 * Returns the book ID of this author.
-	 *
-	 * @return the book ID of this author
-	 */
-	@AutoEscape
-	public String getBookId();
-
-	/**
-	 * Sets the book ID of this author.
-	 *
-	 * @param bookId the book ID of this author
-	 */
-	public void setBookId(String bookId);
-
 	@Override
 	public Author cloneWithOriginalValues();
 

@@ -145,8 +145,6 @@ public class BookPersistenceTest {
 
 		newBook.setBookPublishDate(RandomTestUtil.nextDate());
 
-		newBook.setAuthorId(RandomTestUtil.randomString());
-
 		_books.add(_persistence.update(newBook));
 
 		Book existingBook = _persistence.findByPrimaryKey(
@@ -170,7 +168,6 @@ public class BookPersistenceTest {
 		Assert.assertEquals(
 			Time.getShortTimestamp(existingBook.getBookPublishDate()),
 			Time.getShortTimestamp(newBook.getBookPublishDate()));
-		Assert.assertEquals(existingBook.getAuthorId(), newBook.getAuthorId());
 	}
 
 	@Test
@@ -201,15 +198,6 @@ public class BookPersistenceTest {
 	}
 
 	@Test
-	public void testCountByAuthorId() throws Exception {
-		_persistence.countByAuthorId("");
-
-		_persistence.countByAuthorId("null");
-
-		_persistence.countByAuthorId((String)null);
-	}
-
-	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		Book newBook = addBook();
 
@@ -237,7 +225,7 @@ public class BookPersistenceTest {
 			"News_Book", "uuid", true, "bookId", true, "groupId", true,
 			"companyId", true, "userId", true, "userName", true, "createDate",
 			true, "modifiedDate", true, "bookCode", true, "bookName", true,
-			"bookPublishDate", true, "authorId", true);
+			"bookPublishDate", true);
 	}
 
 	@Test
@@ -523,8 +511,6 @@ public class BookPersistenceTest {
 		book.setBookName(RandomTestUtil.randomString());
 
 		book.setBookPublishDate(RandomTestUtil.nextDate());
-
-		book.setAuthorId(RandomTestUtil.randomString());
 
 		_books.add(_persistence.update(book));
 

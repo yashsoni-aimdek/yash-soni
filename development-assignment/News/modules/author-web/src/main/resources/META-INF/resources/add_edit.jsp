@@ -57,11 +57,9 @@
 
 <aui:input type="submit" name="Submit" value="Submit"/>
 	<aui:button name="Cancel" href="${viewAuthorsURL}" value="Cancel"/>
-	
 </aui:form>
 
  <script type="text/javascript" >	
-
 
 $(document).ready(function() {
 	Liferay.Service(
@@ -78,4 +76,3 @@ $(document).ready(function() {
 			);
 });
 </script>
-

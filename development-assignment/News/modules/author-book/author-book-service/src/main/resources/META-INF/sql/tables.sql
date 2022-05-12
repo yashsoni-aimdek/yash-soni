@@ -9,8 +9,7 @@ create table News_Author (
 	modifiedDate DATE null,
 	authorCode VARCHAR(75) null,
 	authorName VARCHAR(75) null,
-	authorRegisterDate DATE null,
-	bookId VARCHAR(75) null
+	authorRegisterDate DATE null
 );
 
 create table News_Author_Book (
@@ -31,6 +30,5 @@ create table News_Book (
 	modifiedDate DATE null,
 	bookCode VARCHAR(75) null,
 	bookName VARCHAR(75) null,
-	bookPublishDate DATE null,
-	authorId VARCHAR(75) null
+	bookPublishDate DATE null
 );

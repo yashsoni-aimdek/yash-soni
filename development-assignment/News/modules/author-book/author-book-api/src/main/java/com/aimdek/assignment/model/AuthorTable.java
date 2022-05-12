@@ -54,8 +54,6 @@ public class AuthorTable extends BaseTable<AuthorTable> {
 		"authorName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AuthorTable, Date> authorRegisterDate = createColumn(
 		"authorRegisterDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<AuthorTable, String> bookId = createColumn(
-		"bookId", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private AuthorTable() {
 		super("News_Author", AuthorTable::new);

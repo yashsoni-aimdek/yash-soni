@@ -61,7 +61,7 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -85,8 +85,6 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 		sb.append(authorName);
 		sb.append(", authorRegisterDate=");
 		sb.append(authorRegisterDate);
-		sb.append(", bookId=");
-		sb.append(bookId);
 		sb.append("}");
 
 		return sb.toString();
@@ -150,13 +148,6 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 			authorImpl.setAuthorRegisterDate(new Date(authorRegisterDate));
 		}
 
-		if (bookId == null) {
-			authorImpl.setBookId("");
-		}
-		else {
-			authorImpl.setBookId(bookId);
-		}
-
 		authorImpl.resetOriginalValues();
 
 		return authorImpl;
@@ -179,7 +170,6 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 		authorCode = objectInput.readUTF();
 		authorName = objectInput.readUTF();
 		authorRegisterDate = objectInput.readLong();
-		bookId = objectInput.readUTF();
 	}
 
 	@Override
@@ -224,13 +214,6 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 		}
 
 		objectOutput.writeLong(authorRegisterDate);
-
-		if (bookId == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(bookId);
-		}
 	}
 
 	public String uuid;
@@ -244,6 +227,5 @@ public class AuthorCacheModel implements CacheModel<Author>, Externalizable {
 	public String authorCode;
 	public String authorName;
 	public long authorRegisterDate;
-	public String bookId;
 
 }

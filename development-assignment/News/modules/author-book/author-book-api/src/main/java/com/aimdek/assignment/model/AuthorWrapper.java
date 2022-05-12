@@ -53,7 +53,6 @@ public class AuthorWrapper
 		attributes.put("authorCode", getAuthorCode());
 		attributes.put("authorName", getAuthorName());
 		attributes.put("authorRegisterDate", getAuthorRegisterDate());
-		attributes.put("bookId", getBookId());
 
 		return attributes;
 	}
@@ -125,12 +124,6 @@ public class AuthorWrapper
 		if (authorRegisterDate != null) {
 			setAuthorRegisterDate(authorRegisterDate);
 		}
-
-		String bookId = (String)attributes.get("bookId");
-
-		if (bookId != null) {
-			setBookId(bookId);
-		}
 	}
 
 	@Override
@@ -176,16 +169,6 @@ public class AuthorWrapper
 	@Override
 	public Date getAuthorRegisterDate() {
 		return model.getAuthorRegisterDate();
-	}
-
-	/**
-	 * Returns the book ID of this author.
-	 *
-	 * @return the book ID of this author
-	 */
-	@Override
-	public String getBookId() {
-		return model.getBookId();
 	}
 
 	/**
@@ -321,16 +304,6 @@ public class AuthorWrapper
 	@Override
 	public void setAuthorRegisterDate(Date authorRegisterDate) {
 		model.setAuthorRegisterDate(authorRegisterDate);
-	}
-
-	/**
-	 * Sets the book ID of this author.
-	 *
-	 * @param bookId the book ID of this author
-	 */
-	@Override
-	public void setBookId(String bookId) {
-		model.setBookId(bookId);
 	}
 
 	/**

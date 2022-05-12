@@ -80,7 +80,7 @@ public class AuthorModelImpl
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"authorCode", Types.VARCHAR}, {"authorName", Types.VARCHAR},
-		{"authorRegisterDate", Types.TIMESTAMP}, {"bookId", Types.VARCHAR}
+		{"authorRegisterDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,11 +98,10 @@ public class AuthorModelImpl
 		TABLE_COLUMNS_MAP.put("authorCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("authorName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("authorRegisterDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("bookId", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table News_Author (uuid_ VARCHAR(75) null,authorId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,authorCode VARCHAR(75) null,authorName VARCHAR(75) null,authorRegisterDate DATE null,bookId VARCHAR(75) null)";
+		"create table News_Author (uuid_ VARCHAR(75) null,authorId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,authorCode VARCHAR(75) null,authorName VARCHAR(75) null,authorRegisterDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table News_Author";
 
@@ -322,9 +321,6 @@ public class AuthorModelImpl
 		attributeSetterBiConsumers.put(
 			"authorRegisterDate",
 			(BiConsumer<Author, Date>)Author::setAuthorRegisterDate);
-		attributeGetterFunctions.put("bookId", Author::getBookId);
-		attributeSetterBiConsumers.put(
-			"bookId", (BiConsumer<Author, String>)Author::setBookId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -567,26 +563,6 @@ public class AuthorModelImpl
 		_authorRegisterDate = authorRegisterDate;
 	}
 
-	@JSON
-	@Override
-	public String getBookId() {
-		if (_bookId == null) {
-			return "";
-		}
-		else {
-			return _bookId;
-		}
-	}
-
-	@Override
-	public void setBookId(String bookId) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_bookId = bookId;
-	}
-
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -660,7 +636,6 @@ public class AuthorModelImpl
 		authorImpl.setAuthorCode(getAuthorCode());
 		authorImpl.setAuthorName(getAuthorName());
 		authorImpl.setAuthorRegisterDate(getAuthorRegisterDate());
-		authorImpl.setBookId(getBookId());
 
 		authorImpl.resetOriginalValues();
 
@@ -687,7 +662,6 @@ public class AuthorModelImpl
 			this.<String>getColumnOriginalValue("authorName"));
 		authorImpl.setAuthorRegisterDate(
 			this.<Date>getColumnOriginalValue("authorRegisterDate"));
-		authorImpl.setBookId(this.<String>getColumnOriginalValue("bookId"));
 
 		return authorImpl;
 	}
@@ -830,14 +804,6 @@ public class AuthorModelImpl
 			authorCacheModel.authorRegisterDate = Long.MIN_VALUE;
 		}
 
-		authorCacheModel.bookId = getBookId();
-
-		String bookId = authorCacheModel.bookId;
-
-		if ((bookId != null) && (bookId.length() == 0)) {
-			authorCacheModel.bookId = null;
-		}
-
 		return authorCacheModel;
 	}
 
@@ -938,7 +904,6 @@ public class AuthorModelImpl
 	private String _authorCode;
 	private String _authorName;
 	private Date _authorRegisterDate;
-	private String _bookId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -980,7 +945,6 @@ public class AuthorModelImpl
 		_columnOriginalValues.put("authorCode", _authorCode);
 		_columnOriginalValues.put("authorName", _authorName);
 		_columnOriginalValues.put("authorRegisterDate", _authorRegisterDate);
-		_columnOriginalValues.put("bookId", _bookId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1025,8 +989,6 @@ public class AuthorModelImpl
 		columnBitmasks.put("authorName", 512L);
 
 		columnBitmasks.put("authorRegisterDate", 1024L);
-
-		columnBitmasks.put("bookId", 2048L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

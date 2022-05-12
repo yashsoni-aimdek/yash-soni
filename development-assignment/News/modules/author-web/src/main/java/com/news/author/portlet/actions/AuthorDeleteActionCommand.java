@@ -38,22 +38,12 @@ public class AuthorDeleteActionCommand extends BaseMVCActionCommand{
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		
 		long authorId = ParamUtil.getLong(actionRequest, "authorId", -1);
-		long bookId = ParamUtil.getLong(actionRequest, "bookId", -1);
 		authorLocalService.deleteAuthor(authorId);
-		
-		try {
-		
-		}catch(Exception e) {
-			
-		}
-		
+	
 	}
 	
 	@Reference
 	private AuthorLocalService authorLocalService;
-	
-	@Reference
-	private BookLocalService bookLocalService;
 	
 	private static final Log LOG = LogFactoryUtil.getLog(AuthorDeleteActionCommand.class.getName());
 

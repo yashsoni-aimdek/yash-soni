@@ -13,7 +13,6 @@
 		<field name="authorCode" type="String" />
 		<field name="authorName" type="String" />
 		<field name="authorRegisterDate" type="Date" />
-		<field name="bookId" type="String" />
 	</model>
 	<model name="com.aimdek.assignment.model.Book">
 		<field name="uuid" type="String" />
@@ -27,6 +26,5 @@
 		<field name="bookCode" type="String" />
 		<field name="bookName" type="String" />
 		<field name="bookPublishDate" type="Date" />
-		<field name="authorId" type="String" />
 	</model>
 </model-hints>

@@ -53,7 +53,6 @@ public class BookWrapper
 		attributes.put("bookCode", getBookCode());
 		attributes.put("bookName", getBookName());
 		attributes.put("bookPublishDate", getBookPublishDate());
-		attributes.put("authorId", getAuthorId());
 
 		return attributes;
 	}
@@ -125,27 +124,11 @@ public class BookWrapper
 		if (bookPublishDate != null) {
 			setBookPublishDate(bookPublishDate);
 		}
-
-		String authorId = (String)attributes.get("authorId");
-
-		if (authorId != null) {
-			setAuthorId(authorId);
-		}
 	}
 
 	@Override
 	public Book cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
-	}
-
-	/**
-	 * Returns the author ID of this book.
-	 *
-	 * @return the author ID of this book
-	 */
-	@Override
-	public String getAuthorId() {
-		return model.getAuthorId();
 	}
 
 	/**
@@ -281,16 +264,6 @@ public class BookWrapper
 	@Override
 	public void persist() {
 		model.persist();
-	}
-
-	/**
-	 * Sets the author ID of this book.
-	 *
-	 * @param authorId the author ID of this book
-	 */
-	@Override
-	public void setAuthorId(String authorId) {
-		model.setAuthorId(authorId);
 	}
 
 	/**

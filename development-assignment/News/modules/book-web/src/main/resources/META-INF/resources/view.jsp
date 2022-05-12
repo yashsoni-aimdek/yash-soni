@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="com.liferay.portal.kernel.util.Validator"%>
 <%@page import="com.liferay.portal.kernel.log.LogFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.log.Log"%>
@@ -34,26 +35,32 @@
 			<td>${book.bookCode}</td>
 			<td>${book.bookName}</td>
 			<%
-				String[] authors = ((Book)pageContext.getAttribute("book")).getAuthorId().split(",");
-				StringBuilder authorNames = new StringBuilder();
-				Log log = LogFactoryUtil.getLog(this.getClass());
-				log.info("Author names fetched : " + authorNames);
-				for(int i=0; i<authors.length;i++){					
-					long authorId = Long.parseLong(authors[i]);
-					if(authorId != 0){
-						Author author = AuthorLocalServiceUtil.getAuthor(authorId);
-						authorNames.append(author.getAuthorName());
-						authorNames.append(",");
+				//				String[] authors = ((Book)pageContext.getAttribute("book")).get().split(",");
+				
+				
+					Map<Long, List<Author>> authorsOfBooks = (Map<Long, List<Author>>)renderRequest.getAttribute("bookAuthors");
+					Log log = LogFactoryUtil.getLog(this.getClass());
+					log.info("authorsOfBooks : " + authorsOfBooks);
+					List<Author> authors = authorsOfBooks.get(((Book)pageContext.getAttribute("book")).getBookId());
+					StringBuilder authorNames = new StringBuilder();
+					log.info("Author names fetched : " + authorNames);
+					if(authors!=null) {
+						for (int i = 0; i < authors.size(); i++) {
+							Author author = authors.get(i);
+							if (author != null) {
+								authorNames.append(author.getAuthorName());
+								authorNames.append(",");
+							}
+						}
 					}
-				}
-				if(authorNames.toString().length()>0){
-					int lastIndexOfComma = authorNames.lastIndexOf(",");
-					log.info("Author Names : " + authorNames);
-					log.info("LastIndexOfComma : " + lastIndexOfComma);
-					authorNames = authorNames.replace(lastIndexOfComma, lastIndexOfComma+1, "");
-				}else{
-					authorNames.append("Unknown Author");
-				}
+					if (authorNames.toString().length() > 0) {
+						int lastIndexOfComma = authorNames.lastIndexOf(",");
+						log.info("Author Names : " + authorNames);
+						log.info("LastIndexOfComma : " + lastIndexOfComma);
+						authorNames = authorNames.replace(lastIndexOfComma, lastIndexOfComma + 1, "");
+					} else {
+						authorNames.append("Unknown Author");
+					}
 			%>
 			<td><%= authorNames.toString()%></td>
 			<td>

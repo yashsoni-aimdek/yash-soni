@@ -79,7 +79,7 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"bookCode", Types.VARCHAR}, {"bookName", Types.VARCHAR},
-		{"bookPublishDate", Types.TIMESTAMP}, {"authorId", Types.VARCHAR}
+		{"bookPublishDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,11 +97,10 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		TABLE_COLUMNS_MAP.put("bookCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("bookName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("bookPublishDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("authorId", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table News_Book (uuid_ VARCHAR(75) null,bookId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,bookCode VARCHAR(75) null,bookName VARCHAR(75) null,bookPublishDate DATE null,authorId VARCHAR(75) null)";
+		"create table News_Book (uuid_ VARCHAR(75) null,bookId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,bookCode VARCHAR(75) null,bookName VARCHAR(75) null,bookPublishDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table News_Book";
 
@@ -120,32 +119,26 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long AUTHORID_COLUMN_BITMASK = 1L;
+	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long COMPANYID_COLUMN_BITMASK = 2L;
+	public static final long GROUPID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long GROUPID_COLUMN_BITMASK = 4L;
-
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
-	 */
-	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 8L;
+	public static final long UUID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long BOOKNAME_COLUMN_BITMASK = 16L;
+	public static final long BOOKNAME_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -325,9 +318,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		attributeSetterBiConsumers.put(
 			"bookPublishDate",
 			(BiConsumer<Book, Date>)Book::setBookPublishDate);
-		attributeGetterFunctions.put("authorId", Book::getAuthorId);
-		attributeSetterBiConsumers.put(
-			"authorId", (BiConsumer<Book, String>)Book::setAuthorId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -570,35 +560,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		_bookPublishDate = bookPublishDate;
 	}
 
-	@JSON
-	@Override
-	public String getAuthorId() {
-		if (_authorId == null) {
-			return "";
-		}
-		else {
-			return _authorId;
-		}
-	}
-
-	@Override
-	public void setAuthorId(String authorId) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_authorId = authorId;
-	}
-
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #getColumnOriginalValue(String)}
-	 */
-	@Deprecated
-	public String getOriginalAuthorId() {
-		return getColumnOriginalValue("authorId");
-	}
-
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -672,7 +633,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		bookImpl.setBookCode(getBookCode());
 		bookImpl.setBookName(getBookName());
 		bookImpl.setBookPublishDate(getBookPublishDate());
-		bookImpl.setAuthorId(getAuthorId());
 
 		bookImpl.resetOriginalValues();
 
@@ -696,7 +656,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		bookImpl.setBookName(this.<String>getColumnOriginalValue("bookName"));
 		bookImpl.setBookPublishDate(
 			this.<Date>getColumnOriginalValue("bookPublishDate"));
-		bookImpl.setAuthorId(this.<String>getColumnOriginalValue("authorId"));
 
 		return bookImpl;
 	}
@@ -839,14 +798,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 			bookCacheModel.bookPublishDate = Long.MIN_VALUE;
 		}
 
-		bookCacheModel.authorId = getAuthorId();
-
-		String authorId = bookCacheModel.authorId;
-
-		if ((authorId != null) && (authorId.length() == 0)) {
-			bookCacheModel.authorId = null;
-		}
-
 		return bookCacheModel;
 	}
 
@@ -947,7 +898,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 	private String _bookCode;
 	private String _bookName;
 	private Date _bookPublishDate;
-	private String _authorId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -989,7 +939,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		_columnOriginalValues.put("bookCode", _bookCode);
 		_columnOriginalValues.put("bookName", _bookName);
 		_columnOriginalValues.put("bookPublishDate", _bookPublishDate);
-		_columnOriginalValues.put("authorId", _authorId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1034,8 +983,6 @@ public class BookModelImpl extends BaseModelImpl<Book> implements BookModel {
 		columnBitmasks.put("bookName", 512L);
 
 		columnBitmasks.put("bookPublishDate", 1024L);
-
-		columnBitmasks.put("authorId", 2048L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

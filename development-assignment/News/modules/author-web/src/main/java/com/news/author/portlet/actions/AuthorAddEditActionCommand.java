@@ -1,6 +1,9 @@
 package com.news.author.portlet.actions;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -37,59 +40,55 @@ import com.aimdek.assignment.service.BookLocalServiceUtil;
 		},
 		service = MVCActionCommand.class
 )
-public class AuthorAddEditActionCommand extends BaseMVCActionCommand{
-	
+public class AuthorAddEditActionCommand extends BaseMVCActionCommand {
+
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-		
-		
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(Author.class.getName(),actionRequest);
-		
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Author.class.getName(), actionRequest);
 		long authorId = ParamUtil.getLong(actionRequest, "authorId", -1);
-		try{
-			if(authorId > 0) {
+		try {
+			if (authorId > 0) {
 				Author author = authorLocalService.getAuthor(authorId);
-				
+
 				preparedAuthorDetails(actionRequest, author);
 				authorLocalService.updateAuthor(author, serviceContext);
-				
-			}else {
-				
+
+			} else {
+
 				Author author = authorLocalService.createAuthor(counterLocalService.increment(Author.class.getName()));
 				preparedAuthorDetails(actionRequest, author);
 				authorLocalService.addAuthor(author, serviceContext);
 			}
-		}catch(AuthorException e) {
-			
+		} catch (AuthorException e) {
+
 			SessionErrors.add(actionRequest, e.getMessage());
 			PortalUtil.copyRequestParameters(actionRequest, actionResponse);
 			actionResponse.getRenderParameters().setValue("mvcRenderCommandName", "/author/add/edit");
 			actionResponse.getRenderParameters().setValue("authorId", String.valueOf(authorId));
-			LOG.error(e.getMessage(),e);
+			LOG.error(e.getMessage(), e);
 		}
 
-		 
 	}
-	
-	private void preparedAuthorDetails(ActionRequest actionRequest, Author author) throws NumberFormatException, PortalException {
-		
+
+	private void preparedAuthorDetails(ActionRequest actionRequest, Author author)
+			throws NumberFormatException, PortalException {
+
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		String authorCode = ParamUtil.getString(actionRequest,"authorCode", "");
+		String authorCode = ParamUtil.getString(actionRequest, "authorCode", "");
 		String authorName = ParamUtil.getString(actionRequest, "authorName", "");
 		String[] bookIds = actionRequest.getParameterValues("bookId");
-
-		StringBuilder bookIdBuilder = new StringBuilder();
-		for(int i=0; i<bookIds.length; i++) {
-			Book book = BookLocalServiceUtil.getBook(Long.parseLong(bookIds[i]));
-			book.setAuthorId(book.getAuthorId() + "," + author.getAuthorId());
-			BookLocalServiceUtil.updateBook(book);
-			bookIdBuilder.append(bookIds[i]);
-			bookIdBuilder.append(",");
-		}
-		String bookIdstr = bookIdBuilder.toString();
-		int lastIndexOfComma = bookIdBuilder.lastIndexOf(",");
-		bookIdBuilder.replace(lastIndexOfComma, lastIndexOfComma+1, "");
-		author.setBookId(bookIdBuilder.toString());
+		List<String> bookIdsList = Arrays.asList(bookIds);
+		bookLocalService.addAuthorBooks(author.getAuthorId(), 
+									bookIdsList.stream().map(b -> {
+										try {
+											return bookLocalService.getBook(Long.parseLong(b));
+										} catch (NumberFormatException | PortalException e) {
+											e.printStackTrace();
+										}
+										return null;
+									}).collect(Collectors.toList())
+									);
+		
 		
 		author.setGroupId(themeDisplay.getScopeGroupId());
 		author.setUserId(themeDisplay.getUserId());
@@ -98,23 +97,21 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand{
 		author.setAuthorCode(authorCode);
 		author.setAuthorName(authorName);
 		author.setAuthorRegisterDate(new Date());
-		
-		LOG.info("Book Id: " +bookIdstr);
-		LOG.info("Author Code: " +authorCode);
-		LOG.info("Author Name: " +authorName);
-		
+
+		LOG.info("Author Code: " + authorCode);
+		LOG.info("Author Name: " + authorName);
+
 	}
-	
-	
+
 	@Reference
 	private AuthorLocalService authorLocalService;
-	
+
 	@Reference
 	private BookLocalService bookLocalService;
-	
+
 	@Reference
 	private CounterLocalService counterLocalService;
-	
+
 	private static final Log LOG = LogFactoryUtil.getLog(AuthorAddEditActionCommand.class.getName());
 
 }
