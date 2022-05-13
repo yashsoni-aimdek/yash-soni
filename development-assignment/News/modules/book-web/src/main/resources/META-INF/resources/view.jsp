@@ -35,15 +35,11 @@
 			<td>${book.bookCode}</td>
 			<td>${book.bookName}</td>
 			<%
-				//				String[] authors = ((Book)pageContext.getAttribute("book")).get().split(",");
-				
 				
 					Map<Long, List<Author>> authorsOfBooks = (Map<Long, List<Author>>)renderRequest.getAttribute("bookAuthors");
 					Log log = LogFactoryUtil.getLog(this.getClass());
-					log.info("authorsOfBooks : " + authorsOfBooks);
 					List<Author> authors = authorsOfBooks.get(((Book)pageContext.getAttribute("book")).getBookId());
 					StringBuilder authorNames = new StringBuilder();
-					log.info("Author names fetched : " + authorNames);
 					if(authors!=null) {
 						for (int i = 0; i < authors.size(); i++) {
 							Author author = authors.get(i);

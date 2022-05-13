@@ -31,7 +31,7 @@ public class BookAddEditRenderCommand implements MVCRenderCommand{
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
-		long bookId = ParamUtil.getLong(renderRequest, "bookId", -1);
+		long bookId = ParamUtil.getLong(renderRequest, "bookId", 0);
 		Book book = null;	
 		try {
 			if(bookId > 0) {

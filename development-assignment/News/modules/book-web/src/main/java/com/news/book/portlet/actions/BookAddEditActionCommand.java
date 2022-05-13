@@ -40,7 +40,7 @@ public class BookAddEditActionCommand extends BaseMVCActionCommand {
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Book.class.getName(),actionRequest);
-		long unknownauthor = 1;
+
 		long bookId = ParamUtil.getLong(actionRequest, "bookId", -1);
 		
 		try{
@@ -58,7 +58,6 @@ public class BookAddEditActionCommand extends BaseMVCActionCommand {
 				Book book = bookLocalService.createBook(counterLocalService.increment(Book.class.getName()));
 				preparedBookDetails(actionRequest, book);
 				bookLocalService.addBook(book, serviceContext);
-				bookLocalService.addAuthorBook(unknownauthor, book);
 			}
 		}catch(BookException e) {
 			

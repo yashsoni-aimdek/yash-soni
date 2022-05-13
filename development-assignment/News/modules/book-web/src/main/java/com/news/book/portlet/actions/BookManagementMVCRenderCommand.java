@@ -37,7 +37,7 @@ public class BookManagementMVCRenderCommand implements MVCRenderCommand {
 
 		Map<Long, List<Author>> bookAuthors = new HashMap<Long, List<Author>>();
 		for (Book book : books) {
-			LOG.info("bookId : " + book.getBookId() + " Book Name : " + book.getBookName());
+			
 			try {
 				List<Author> authors = authorLocalService.getBookAuthors(book.getBookId());
 				bookAuthors.put(book.getBookId(), authors);
