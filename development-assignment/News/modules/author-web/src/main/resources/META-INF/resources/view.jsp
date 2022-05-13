@@ -61,18 +61,18 @@
 		Document doc = hits.doc(i);
 		
 		long authorId = GetterUtil.getLong(doc.get(Field.ENTRY_CLASS_PK));
-		
 		Author author = null;
 		
 		try{
 			author = AuthorLocalServiceUtil.getAuthor(authorId);
+			authors.add(author);
 		}
 		catch(PortalException pe){
 		}
 		catch(SystemException se){
 		}
 		
-		authors.add(author);
+		
 	}
 %>
 
