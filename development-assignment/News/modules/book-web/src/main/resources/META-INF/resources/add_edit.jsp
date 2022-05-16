@@ -2,14 +2,15 @@
 <%@page import="com.liferay.portal.kernel.util.WebKeys"%>
 <%@page import="com.aimdek.assignment.model.Book"%>
 <%@page import="com.liferay.portal.kernel.theme.ThemeDisplay"%>
+
 <%@ include file="/init.jsp" %>
 
 <portlet:actionURL name="/book/add/edit" var="addBookURL"/>
+<portlet:resourceURL id="captcha" var="captchaResourceURL"/>
 
 <portlet:renderURL var="viewBooksURL">
 	<portlet:param name="mvcRenderCommandName" value="/" />
 </portlet:renderURL>
-
 
 <liferay-ui:error key="book-code-required" message="book-code-required" />
 <liferay-ui:error key="book-name-required" message="book-name-required" />

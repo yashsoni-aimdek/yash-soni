@@ -59,7 +59,6 @@
 	
 	for(int i = 0; i < hits.getDocs().length; i++){
 		Document doc = hits.doc(i);
-		
 		long authorId = GetterUtil.getLong(doc.get(Field.ENTRY_CLASS_PK));
 		Author author = null;
 		
@@ -105,7 +104,7 @@
 		</liferay-ui:search-container-column-text>
 		
 	</liferay-ui:search-container-row>
-	<liferay-ui:search-iterator searchContainer="<%=searchContainer%>" />
+	<liferay-ui:search-iterator markupView="lexicon" searchContainer="<%=searchContainer%>" />
 </liferay-ui:search-container>
 <br>
 <aui:button name="addAuthor" href="${addAuthorURL}" value="Add Author"/>

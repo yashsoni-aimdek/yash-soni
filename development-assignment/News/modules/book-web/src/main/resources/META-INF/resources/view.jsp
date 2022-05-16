@@ -51,14 +51,14 @@
 					}
 					if (authorNames.toString().length() > 0) {
 						int lastIndexOfComma = authorNames.lastIndexOf(",");
-						log.info("Author Names : " + authorNames);
-						log.info("LastIndexOfComma : " + lastIndexOfComma);
+						//log.info("Author Names : " + authorNames);
+						//log.info("LastIndexOfComma : " + lastIndexOfComma);
 						authorNames = authorNames.replace(lastIndexOfComma, lastIndexOfComma + 1, "");
 					} else {
 						authorNames.append("Unknown Author");
 					}
 			%>
-			<td><%= authorNames.toString()%></td>
+			<td  style="overflow-wrap: anywhere;max-width: 200px;"><%= authorNames.toString()%></td>
 			<td>
 			
 				

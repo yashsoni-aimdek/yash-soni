@@ -1,7 +1,8 @@
 package com.news.book.portlet;
 
 import com.news.book.constants.BookWebPortletKeys;
-
+import com.liferay.captcha.util.CaptchaUtil;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -14,6 +15,8 @@ import javax.portlet.PortletException;
 import javax.portlet.ProcessAction;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -36,6 +39,5 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class BookWebPortlet extends MVCPortlet {
-	
 	
 }

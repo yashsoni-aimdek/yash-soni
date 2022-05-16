@@ -1,9 +1,13 @@
 package com.news.book.portlet.actions;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -11,7 +15,9 @@ import org.osgi.service.component.annotations.Reference;
 import com.aimdek.assignment.exception.BookException;
 import com.aimdek.assignment.model.Book;
 import com.aimdek.assignment.service.BookLocalService;
+import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.counter.kernel.service.CounterLocalService;
+import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -36,7 +42,7 @@ import com.news.book.constants.BookWebPortletKeys;
 )
 public class BookAddEditActionCommand extends BaseMVCActionCommand {
 
-	@Override
+	@Override		
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Book.class.getName(),actionRequest);
@@ -44,17 +50,12 @@ public class BookAddEditActionCommand extends BaseMVCActionCommand {
 		long bookId = ParamUtil.getLong(actionRequest, "bookId", -1);
 		
 		try{
-			if(bookId > 0) {
-				
-				
+			if(bookId > 0) {	
 				Book book = bookLocalService.getBook(bookId);
-				
-			
 				preparedBookDetails(actionRequest, book);
 				bookLocalService.updateBook(book, serviceContext);
 				
 			}else {
-				
 				Book book = bookLocalService.createBook(counterLocalService.increment(Book.class.getName()));
 				preparedBookDetails(actionRequest, book);
 				bookLocalService.addBook(book, serviceContext);
@@ -70,14 +71,13 @@ public class BookAddEditActionCommand extends BaseMVCActionCommand {
 		
 	}
 	
+	
 	protected void preparedBookDetails(ActionRequest actionRequest, Book book) {
 		
 		ThemeDisplay themeDisplay =(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		
-		
 		String bookCode = ParamUtil.getString(actionRequest,"bookCode", "");
 		String bookName = ParamUtil.getString(actionRequest, "bookName", "");
-	
 		
 		book.setGroupId(themeDisplay.getScopeGroupId());
 		book.setCompanyId(themeDisplay.getCompanyId());
@@ -87,10 +87,11 @@ public class BookAddEditActionCommand extends BaseMVCActionCommand {
 		book.setBookName(bookName);
 		book.setBookPublishDate(new Date());
 		
-		LOG.info("Book Code: " +bookCode);
-		LOG.info("Book Name: " +bookName);
+//		LOG.info("Book Code: " +bookCode);
+//		LOG.info("Book Name: " +bookName);
 		
 	}
+	
 	
 	@Reference
 	private BookLocalService bookLocalService;

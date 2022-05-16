@@ -79,12 +79,7 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand {
 		String[] bookIds = actionRequest.getParameterValues("bookId");
 		
 		List<String> bookIdsList = Arrays.asList(bookIds);
-		if(bookIdsList.size()==1 && bookIdsList.get(0).equals("1")) {
-			LOG.info("Is Equal to 1 :" + author.getAuthorId());
-
-		}else {
-			LOG.info("Not Equal to 1" + author.getAuthorId());
-		}
+		
 		bookLocalService.addAuthorBooks(author.getAuthorId(), 
 									bookIdsList.stream().map(b -> {
 										try {
@@ -95,8 +90,6 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand {
 										return null;
 									}).collect(Collectors.toList())
 									);
-		
-		
 		author.setGroupId(themeDisplay.getScopeGroupId());
 		author.setUserId(themeDisplay.getUserId());
 		author.setUserName(themeDisplay.getUser().getFullName());

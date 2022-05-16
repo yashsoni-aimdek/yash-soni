@@ -2,6 +2,8 @@ package com.news.book.portlet.actions;
 
 
 
+import java.io.IOException;
+
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -11,6 +13,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.aimdek.assignment.model.Book;
 import com.aimdek.assignment.service.BookLocalService;
+import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
