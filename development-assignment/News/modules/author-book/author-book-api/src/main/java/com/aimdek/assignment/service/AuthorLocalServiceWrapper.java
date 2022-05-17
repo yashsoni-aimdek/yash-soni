@@ -14,6 +14,8 @@
 
 package com.aimdek.assignment.service;
 
+import java.util.List;
+
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -534,5 +536,11 @@ public class AuthorLocalServiceWrapper
 	}
 
 	private AuthorLocalService _authorLocalService;
+
+	@Override
+	public void addAuthorBooks(long authorId, List<Long> bookIdsList) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

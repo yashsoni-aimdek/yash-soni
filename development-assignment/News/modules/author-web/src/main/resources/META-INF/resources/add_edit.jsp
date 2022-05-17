@@ -1,9 +1,16 @@
+<%@page import="com.aimdek.assignment.model.Book"%>
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="com.liferay.portal.kernel.log.LogFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.log.Log"%>
+<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
+<%@page import="java.util.List"%>
+<%@page import="com.aimdek.assignment.service.AuthorLocalService"%>
 <%@page import="com.liferay.portal.kernel.service.LayoutLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.service.LayoutLocalService"%>
 <%@page import="com.liferay.portal.kernel.theme.ThemeDisplay"%>
 <%@page import="com.liferay.portal.kernel.util.WebKeys"%>
 <%@page import="com.aimdek.assignment.model.Author"%>
-<%@ include file="/init.jsp" %>
+<%@ include file="init.jsp" %>
 
 <link rel="stylesheet" href="css/multi-select.min.css">
 
@@ -14,15 +21,16 @@
 </portlet:renderURL>
 
 <% 
-	
+	Log log = LogFactoryUtil.getLog(this.getClass());
 	ThemeDisplay td = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 
 	String friendyURL = "/books";
 	
 	String pName = "com_news_book_BookWebPortlet";
 	
+	List<String> bookList =(List<String>) request.getAttribute("authorBooks");
 	long pid = LayoutLocalServiceUtil.getFriendlyURLLayout(td.getScopeGroupId(), true, friendyURL).getPlid();
-
+	
 %>
 
 <liferay-ui:error key="author-code-required" message="author-code-required" />
@@ -68,8 +76,15 @@ $(document).ready(function() {
 			    console.log(obj);
 			    
 			    var list = $("#<portlet:namespace/>bookNameId");
+			    var bookList = '<%= bookList%>';
 			    for (let key of obj) {
-			    list.append(new Option(key.bookName, key.bookId));
+					let opt = new Option(key.bookName, key.bookId);	
+			    	if(bookList.includes(key.bookName)){
+						opt.selected = "true";
+					    list.append(opt);
+			    	} else {
+			    		list.append(opt);
+			    	}
 			    }
 			    
 			  }

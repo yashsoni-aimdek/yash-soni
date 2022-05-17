@@ -1,6 +1,7 @@
 package com.news.author.portlet.actions;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -50,6 +51,8 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 		renderRequest.setAttribute("author", author);
 		renderRequest.setAttribute("book", book);
 		renderRequest.setAttribute("allBooks",bookLocalService.getAllBooks());
+		List<Book> books = bookLocalService.getAuthorBooks(authorId);
+		renderRequest.setAttribute("authorBooks", books.stream().map(b -> b.getBookName()).collect(Collectors.toList()));
 		return "/add_edit.jsp";
 	}
 	
@@ -59,6 +62,6 @@ public class AuthorAddEditRenderCommand implements MVCRenderCommand{
 	@Reference
 	private BookLocalService bookLocalService;
 	
-	private static final Log LOG = LogFactoryUtil.getLog(AuthorAddEditActionCommand.class);
+	private static final Log LOG = LogFactoryUtil.getLog(AuthorAddEditRenderCommand.class);
 }
  

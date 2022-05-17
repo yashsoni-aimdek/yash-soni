@@ -46,18 +46,25 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand {
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Author.class.getName(), actionRequest);
 		long authorId = ParamUtil.getLong(actionRequest, "authorId", -1);
+		String[] bookIds = actionRequest.getParameterValues("bookId");
+		
+		List<Long> bookIdsList = Arrays.asList(bookIds).stream().map(n->Long.parseLong(n)).collect(Collectors.toList());
+		
 		try {
 			if (authorId > 0) {
 				Author author = authorLocalService.getAuthor(authorId);
 
 				preparedAuthorDetails(actionRequest, author);
+			
 				authorLocalService.updateAuthor(author, serviceContext);
 
 			} else {
 
 				Author author = authorLocalService.createAuthor(counterLocalService.increment(Author.class.getName()));
 				preparedAuthorDetails(actionRequest, author);
+				authorLocalService.addAuthorBooks(author.getAuthorId(), bookIdsList);
 				authorLocalService.addAuthor(author, serviceContext);
+				
 			}
 		} catch (AuthorException e) {
 
@@ -76,20 +83,7 @@ public class AuthorAddEditActionCommand extends BaseMVCActionCommand {
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		String authorCode = ParamUtil.getString(actionRequest, "authorCode", "");
 		String authorName = ParamUtil.getString(actionRequest, "authorName", "");
-		String[] bookIds = actionRequest.getParameterValues("bookId");
 		
-		List<String> bookIdsList = Arrays.asList(bookIds);
-		
-		bookLocalService.addAuthorBooks(author.getAuthorId(), 
-									bookIdsList.stream().map(b -> {
-										try {
-											return bookLocalService.getBook(Long.parseLong(b));
-										} catch (NumberFormatException | PortalException e) {
-											e.printStackTrace();
-										}
-										return null;
-									}).collect(Collectors.toList())
-									);
 		author.setGroupId(themeDisplay.getScopeGroupId());
 		author.setUserId(themeDisplay.getUserId());
 		author.setUserName(themeDisplay.getUser().getFullName());

@@ -378,4 +378,6 @@ public interface AuthorLocalService
 	public Author updateAuthor(Author author, ServiceContext serviceContext)
 		throws PortalException;
 
+	public void addAuthorBooks(long authorId, List<Long> bookIdsList);
+
 }

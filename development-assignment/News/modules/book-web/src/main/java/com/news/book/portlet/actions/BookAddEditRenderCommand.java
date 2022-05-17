@@ -2,7 +2,7 @@ package com.news.book.portlet.actions;
 
 
 
-import java.io.IOException;
+
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;

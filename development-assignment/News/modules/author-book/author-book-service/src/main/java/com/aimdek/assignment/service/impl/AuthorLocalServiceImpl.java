@@ -18,6 +18,7 @@ import com.aimdek.assignment.exception.AuthorException;
 import com.aimdek.assignment.model.Author;
 import com.aimdek.assignment.model.Book;
 import com.aimdek.assignment.service.BookLocalService;
+import com.aimdek.assignment.service.BookLocalServiceUtil;
 import com.aimdek.assignment.service.base.AuthorLocalServiceBaseImpl;
 
 import com.liferay.portal.aop.AopService;
@@ -28,6 +29,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -79,6 +81,31 @@ public class AuthorLocalServiceImpl extends AuthorLocalServiceBaseImpl {
 		validateAuthor(author);
 		return addAuthor(author);
 	}
+/*	@Indexable(type = IndexableType.REINDEX)
+	public Author addAuthorBooks(Author author,ServiceContext serviceContext) throws PortalException {
+		author.getAuthorId(), 
+		bookIdsList.stream().map(b -> {
+			try {
+				return bookLocalService.getBook(Long.parseLong(b));
+			} catch (NumberFormatException | PortalException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}).collect(Collectors.toList()) 
+	}
+	*/
+	@Override
 	
+	public void addAuthorBooks(long authorId, List<Long> bookIdsList) {
+		
+		BookLocalServiceUtil.addAuthorBooks(authorId, bookIdsList.stream().map(b -> {
+			try {
+				return BookLocalServiceUtil.getBook(b);
+			} catch (PortalException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}).collect(Collectors.toList()));
+	}
 	
 }
